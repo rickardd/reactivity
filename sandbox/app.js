@@ -1,4 +1,4 @@
-import {create} from "./source/index.js"
+import { Raccoon } from "./source/index.js"
 
 const compute = {
   sum() {
@@ -10,7 +10,7 @@ const compute = {
 }
 
 // Create reactive object.
-const proxy = create(compute)
+const proxy = new Raccoon(compute)
 
 // Set init values
 proxy.price = 5;
