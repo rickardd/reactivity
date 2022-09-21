@@ -1,16 +1,12 @@
 import { Raccoon } from "./source/index.js"
 
-const compute = {
-  sum() {
-    return proxy.price * proxy.quantity
-  },
-  total() {
-    return proxy.price * proxy.quantity + proxy.tax
-  }
-}
+const {proxy, compute} = new Raccoon()
 
-// Create reactive object.
-const proxy = new Raccoon(compute)
+compute.sum = () => proxy.price * proxy.quantity
+
+compute.total = () => proxy.price * proxy.quantity + proxy.tax
+
+// In order to allow the declaring compute like raccoon.compute = { sum()..., total()...} we need to add setters and getters.
 
 // Set init values
 proxy.price = 5;

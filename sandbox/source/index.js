@@ -29,8 +29,12 @@ function Reactive(compute) {
   return new Proxy(new Map, proxyHandler); // new Map, internal map for proxy.
 }
 
-function Raccoon(compute) {
-  return new Reactive(compute)
+function Raccoon() {
+  this.compute = {}
+  return {
+    compute: this.compute,
+    proxy: new Reactive(this.compute),
+  }
 }
 
 export { Raccoon }
