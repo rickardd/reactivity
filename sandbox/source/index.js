@@ -1,32 +1,33 @@
 function Reactive(compute) {
-  const map = new Map()
+  this.computeMap = new Map() // Holds computed method e.g {sum: fn() {..}, ...}
   
   // Calculate and set values from computed
   // Runs every time a value has changed.
-  const update = (obj) => {
-    // Add all compute methods to the map. Entries will never be duplicated
+  const updateCompute = (proxyMap) => {
+    // Add compute methods to the computeMap. 
+    // Entries stays unique due to the Map behavior.
     for (const key in compute) {
-      map.set(key, compute[key])
+      this.computeMap.set(key, compute[key])
     }
     
     // Run each method in the map and apply it's computed value to the executed object
-    map.forEach( (value, key, map) => {
-      obj.set(key, value()) // set computed values (Update: set to the proxy Map)
+    this.computeMap.forEach( (value, key, map) => {
+      proxyMap.set(key, value()) // set computed values (Update: set to the proxy Map)
     })
   }
 
   const proxyHandler = {
-    set(obj, property, value) {
-      obj.set(property, value) // Set values (none computed values)
-      update(obj) // Calculate and set values from computed
+    set(proxyMap, property, value) {
+      proxyMap.set(property, value) // Set values defined by proxy e.g proxy.price - (none computed values)
+      updateCompute(proxyMap) // Calculate and set values from computed
       return true // Fixes a proxy trap issue but why is this needed? What should it return?
     },
-    get(obj, property) {
-      return obj.get(property)
+    get(proxyMap, property) {
+      return proxyMap.get(property)
     }
   }
 
-  return new Proxy(new Map, proxyHandler); // new Map, internal map for proxy.
+  return new Proxy(new Map, proxyHandler);
 }
 
 function Raccoon() {
