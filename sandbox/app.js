@@ -4,8 +4,8 @@ const {proxy, compute} = new Raccoon()
 
 // Set init values
 proxy.price = 5;
-proxy.quantity = 5;
-proxy.tax = 5;
+proxy.quantity = 15;
+proxy.tax = 25;
 
 // To allow the syntax compute = {...} we need to use set, or proxy 
 compute.sum = () => proxy.price * proxy.quantity
@@ -19,4 +19,3 @@ function onClick(e) {
 
 // Bind count up
 document.querySelector('[data-count-up]').addEventListener('click', onClick)
-

@@ -1,3 +1,5 @@
+import { update as updateTemplate, prepare as prepareTemplate } from './template-engine.js'
+
 function Reactive(compute) {
   this.computeMap = new Map() // Holds computed method e.g {sum: fn() {..}, ...}
   
@@ -20,6 +22,7 @@ function Reactive(compute) {
     set(proxyMap, property, value) {
       proxyMap.set(property, value) // Set values defined by proxy e.g proxy.price - (none computed values)
       updateCompute(proxyMap) // Calculate and set values from computed
+      updateTemplate(proxyMap)
       return true // Fixes a proxy trap issue but why is this needed? What should it return?
     },
     get(proxyMap, property) {
@@ -32,9 +35,13 @@ function Reactive(compute) {
 
 function Raccoon() {
   this.compute = {}
+  const proxy = new Reactive(this.compute)
+  
+  prepareTemplate(document.getElementById('app'))
+  
   return {
     compute: this.compute,
-    proxy: new Reactive(this.compute),
+    proxy: proxy,
   }
 }
 
