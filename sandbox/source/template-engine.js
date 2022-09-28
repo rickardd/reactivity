@@ -1,6 +1,7 @@
 const DATA_BINDING_STRING = 'data-element-binding' 
 
 // Applies data attributes e.g data-element-binding="my-var"
+// Side-effect: This alters the markup. It adds a child span element.
 function prepare(appEl) {
   const markToken = (match, variable) => `<span ${DATA_BINDING_STRING}=${variable}></span>`
 
