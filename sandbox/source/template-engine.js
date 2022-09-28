@@ -14,7 +14,6 @@ function prepare(appEl) {
 // 1. Finds all elements with data-element-binding.
 // 2. Applies corresponding proxyMap value to the DOM for matched element.
 function update(proxyMap) {
-  console.log("update template engine")
   const els = Array.from(document.querySelectorAll(`[${DATA_BINDING_STRING}]`))
   els.forEach(el => {
       const value = proxyMap.get(el.dataset.elementBinding)

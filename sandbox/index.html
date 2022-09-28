@@ -9,9 +9,9 @@
 </head>
 <body>
 
-  <button data-count-up>Count Up</button>
 
   <div id="app">
+    <button @click='proxy.price += 10'>Count Up</button>
     <div>{{price}}</div>
     <div>{{quantity}}</div>
     <div>{{tax}}</div>

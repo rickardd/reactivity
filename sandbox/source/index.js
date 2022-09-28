@@ -1,4 +1,5 @@
 import { update as updateTemplate, prepare as prepareTemplate } from './template-engine.js'
+import { bind as bindDomEvents } from "./dom-events.js";
 
 function Reactive(compute) {
   this.computeMap = new Map() // Holds computed method e.g {sum: fn() {..}, ...}
@@ -38,6 +39,7 @@ function Raccoon(appEl) {
   const proxy = new Reactive(this.compute)
   
   prepareTemplate(appEl)
+  bindDomEvents(proxy)
   
   return {
     compute: this.compute,
