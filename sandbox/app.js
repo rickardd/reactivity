@@ -1,6 +1,8 @@
 import { Raccoon } from "./source/index.js"
 
-const {proxy, compute} = new Raccoon()
+const appEl = document.getElementById('app')
+
+const {proxy, compute} = new Raccoon(appEl)
 
 // Set init values
 proxy.price = 5;

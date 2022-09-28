@@ -33,11 +33,11 @@ function Reactive(compute) {
   return new Proxy(new Map, proxyHandler);
 }
 
-function Raccoon() {
+function Raccoon(appEl) {
   this.compute = {}
   const proxy = new Reactive(this.compute)
   
-  prepareTemplate(document.getElementById('app'))
+  prepareTemplate(appEl)
   
   return {
     compute: this.compute,
