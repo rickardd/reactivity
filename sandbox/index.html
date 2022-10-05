@@ -18,13 +18,20 @@
     <div>{{total}}</div>
     <div>
       <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
-      <input type="text" @input="proxy.tax = Number(event.target.value)">
+      <!-- both :value="tax" and :value="proxy.tax" are valid -->
+      <label>
+        <span>Price: </span>  
+        <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
+      </label>
     </div>
     <div>
-      <input type="text" @input="proxy.tax = Number(event.target.value)" :value="proxy.tax">
+      <label>
+        <span>Tax: </span>  
+        <input type="number" @input="proxy.tax = Number(event.target.value)" :value="tax">
+      </label>
     </div>
     <div>
-      <input type="text" r-model="tax">
+      <input type="number" r-model="tax">
     </div>
   </div>
 

@@ -14,7 +14,6 @@ const executeExpression = (el, proxy, attribute) => {
 
 // Bind all DOM elements.
 const bind = (proxy) => {
-
   const getElements = selector => Array.from(document.querySelectorAll(selector))
 
   const bindElements = (selector, attribute, eventName) => {
