@@ -1,3 +1,5 @@
+import { getElements } from "./utils.js";
+
 const CLICK_SELECTOR = '[\\@click]'
 const CLICK_ATTRIBUTE = '@click'
 const INPUT_SELECTOR = '[\\@input]'
@@ -14,8 +16,6 @@ const executeExpression = (el, proxy, attribute) => {
 
 // Bind all DOM elements.
 const bind = (proxy) => {
-  const getElements = selector => Array.from(document.querySelectorAll(selector))
-
   const bindElements = (selector, attribute, eventName) => {
     return getElements(selector).forEach( el => el.addEventListener(eventName, executeExpression.bind(this, el, proxy, attribute)) )
   }
