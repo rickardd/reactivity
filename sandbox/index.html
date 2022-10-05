@@ -9,7 +9,6 @@
 </head>
 <body>
 
-
   <div id="app">
     <button @click='proxy.price += 10'>Count Up</button>
     <div>{{price}}</div>
@@ -17,7 +16,18 @@
     <div>{{tax}}</div>
     <div>{{sum}}</div>
     <div>{{total}}</div>
+    <div>
+      <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
+      <input type="text" @input="proxy.tax = Number(event.target.value)">
+    </div>
+    <div>
+      <input type="text" @input="proxy.tax = Number(event.target.value)" :value="proxy.tax">
+    </div>
+    <div>
+      <input type="text" r-model="tax">
+    </div>
   </div>
+
   
 </body>
 </html>
