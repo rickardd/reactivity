@@ -1,5 +1,6 @@
 import { update as updateTemplate, prepare as prepareTemplate } from './template-engine.js'
 import { bind as bindDomEvents } from "./dom-events.js";
+import { bind as bindModelEvents } from "./dom-model-events.js";
 import { update as updateInputValue } from "./dom-input-value.js";
 
 function Reactive(compute) {
@@ -42,6 +43,7 @@ function Raccoon(appEl) {
   
   prepareTemplate(appEl)
   bindDomEvents(proxy)
+  bindModelEvents(proxy)
   
   return {
     compute: this.compute,
