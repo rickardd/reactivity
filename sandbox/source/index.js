@@ -1,7 +1,7 @@
 import { update as updateTemplate, prepare as prepareTemplate } from './template-engine.js'
 import { bind as bindDomEvents } from "./dom-events.js";
 import { bind as bindModelEvents } from "./dom-model-events.js";
-import { update as updateInputValue } from "./dom-input-value.js";
+import { updateInput as updateInputValue, updateModel as updateModelValue } from "./dom-input-value.js";
 
 function Reactive(compute) {
   this.computeMap = new Map() // Holds computed method e.g {sum: fn() {..}, ...}
@@ -26,6 +26,7 @@ function Reactive(compute) {
       proxyMap.set(property, value) // Set values defined by proxy e.g proxy.price - (none computed values)
       updateCompute(proxyMap) // Calculate and set values from computed
       updateInputValue(proxyMap) // Update <input :value="...">
+      updateModelValue(proxyMap) // Update <input :r-model="...">
       updateTemplate(proxyMap)
       return true // Fixes a proxy trap issue but why is this needed? What should it return?
     },
