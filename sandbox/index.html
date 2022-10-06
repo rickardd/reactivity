@@ -26,8 +26,26 @@
     </div>
     <div>
       <label>
-        <span>Tax: </span>  
+        <span>Tax: @input</span>  
         <input type="number" @input="proxy.tax = Number(event.target.value)" :value="tax">
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>Tax: @change</span>  
+        <input type="number" @change="proxy.tax = Number(event.target.value)" :value="tax">
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>Tax: @keyup</span>  
+        <input type="number" @keyup="proxy.tax = Number(event.target.value)" :value="tax">
+      </label>
+    </div>
+    <div>
+      <label>
+        <span>Tax: @keydown</span>  
+        <input type="number" @keydown="proxy.tax = Number(event.target.value)" :value="tax">
       </label>
     </div>
     <div>

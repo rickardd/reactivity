@@ -1,9 +1,43 @@
 import { getElements } from "./utils.js";
 
-const CLICK_SELECTOR = '[\\@click]'
-const CLICK_ATTRIBUTE = '@click'
-const INPUT_SELECTOR = '[\\@input]'
-const INPUT_ATTRIBUTE = '@input'
+const BINDINGS = [
+  {
+    selector: '[\\@click]',
+    attribute: '@click',
+    events: ['click'],
+  },
+  {
+    selector: '[\\@input]',
+    attribute: '@input',
+    events: ['change', 'keyup'],
+  },
+  {
+    selector: '[\\@change]',
+    attribute: '@change',
+    events: ['change'],
+  },
+  {
+    selector: '[\\@keyup]',
+    attribute: '@keyup',
+    events: ['keyup'],
+  },
+  {
+    selector: '[\\@keydown]',
+    attribute: '@keydown',
+    events: ['keydown'],
+  },
+  {
+    selector: '[\\@focus]',
+    attribute: '@focus',
+    events: ['focus'],
+  },
+  {
+    selector: '[\\@blur]',
+    attribute: '@blur',
+    events: ['blur'],
+  }
+]
+
 
 // Execute expression e.g @click='proxy.price += 10' or @input='proxy.price += 10'
 // Proxy needs to be available as it's used in the expression.
@@ -17,11 +51,15 @@ const executeExpression = (el, proxy, attribute) => {
 // Bind all DOM elements.
 const bind = (proxy) => {
   const bindElements = (selector, attribute, eventName) => {
-    return getElements(selector).forEach( el => el.addEventListener(eventName, executeExpression.bind(this, el, proxy, attribute)) )
+    getElements(selector).forEach( el => el.addEventListener(eventName, executeExpression.bind(this, el, proxy, attribute)) )
   }
 
-  bindElements(CLICK_SELECTOR, CLICK_ATTRIBUTE, 'click')
-  bindElements(INPUT_SELECTOR, INPUT_ATTRIBUTE, 'keyup')
+  BINDINGS.forEach(({selector, attribute, events}) => {
+    events.forEach(event => {
+      bindElements(selector, attribute, event)
+    })
+  })
+  
 }
 
 export { bind }
