@@ -2,6 +2,7 @@ import { update as updateTemplate, prepare as prepareTemplate } from './template
 import { bind as bindDomEvents } from "./dom-events.js";
 import { bind as bindModelEvents } from "./dom-model-events.js";
 import { updateInput as updateInputValue, updateModel as updateModelValue } from "./dom-input-value.js";
+import { update as updateFor } from "./directives/for.js";
 
 function Reactive(compute) {
   this.computeMap = new Map() // Holds computed method e.g {sum: fn() {..}, ...}
@@ -28,11 +29,18 @@ function Reactive(compute) {
       updateInputValue(proxyMap) // Update <input :value="...">
       updateModelValue(proxyMap) // Update <input :r-model="...">
       updateTemplate(proxyMap)
+      updateFor(proxyMap) // Update r-for
       return true // Fixes a proxy trap issue but why is this needed? What should it return?
     },
     get(proxyMap, property) {
       return proxyMap.get(property)
-    }
+    },
+    deleteProperty(proxyMap, property) { // e.g delete proxy.names
+      // if (!(property in proxyMap)) { return false; }
+      // return proxyMap.removeItem(property);
+      console.log('deleteProperty()');
+      return true
+    },
   }
 
   return new Proxy(new Map, proxyHandler);

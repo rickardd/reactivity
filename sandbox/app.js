@@ -8,6 +8,12 @@ const {proxy, compute} = new Raccoon(appEl)
 proxy.price = 5;
 proxy.quantity = 15;
 proxy.tax = 25;
+proxy.names = [
+  "Frank",
+  "Lisa",
+  "Peter",
+  "Amanda",
+]
 
 // To allow the syntax compute = {...} we need to use set, or proxy 
 compute.sum = () => proxy.price * proxy.quantity

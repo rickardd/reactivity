@@ -54,6 +54,26 @@
         <input type="number" r-model="tax">
       </label>
     </div>
+    
+    <!-- r-for -->
+    <br>
+    <strong>r-for</strong>
+    <br>
+    <button @click="proxy.names = [...proxy.names, 'Rick']">Add Rick</button>
+    <button @click="proxy.names = [...proxy.names, 'Carl']">Add Carl</button>
+    <button @click="proxy.names = [...proxy.names, 'Paula']">Add Paula</button>
+    <button @click="proxy.names = [...proxy.names, 'Foxy']">Add Foxy</button>
+    <br>
+    <!-- A handler for this is required -->
+    <button @click="delete proxy.names">Remove proxy.names</button> <!-- Triggers deleteProperty() -->
+    <!-- Most methods of deleting does not trigger the proxy set event -->
+    <!-- But splice works  -->
+    <!-- For delete to work properly we need a proxy for each value in the array. -->
+    <button @click="proxy.names = proxy.names.splice(0, proxy.names.length - 1)">Delete Last</button>
+    <br>
+    <div r-for="name of names">
+      {{ names.name }}
+    </div>
   </div>
 
 </body>

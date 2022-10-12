@@ -38,7 +38,6 @@ const BINDINGS = [
   }
 ]
 
-
 // Execute expression e.g @click='proxy.price += 10' or @input='proxy.price += 10'
 // Proxy needs to be available as it's used in the expression.
 const executeExpression = (el, proxy, attribute) => {
