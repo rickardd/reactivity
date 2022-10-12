@@ -69,7 +69,8 @@
     <!-- Most methods of deleting does not trigger the proxy set event -->
     <!-- But splice works  -->
     <!-- For delete to work properly we need a proxy for each value in the array. -->
-    <button @click="proxy.names = proxy.names.splice(0, proxy.names.length - 1)">Delete Last</button>
+    <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
+    <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
     <br>
     <div r-for="name of names">
       {{ names.name }}
