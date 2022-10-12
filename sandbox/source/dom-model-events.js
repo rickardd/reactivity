@@ -4,7 +4,6 @@ const SELECTOR = '[r-model]'
 const ATTRIBUTE = 'r-model'
 
 const update = (el, proxy, attribute) => {
-  debugger
   const property = el.attributes[attribute].value
   let value = el.value
   
