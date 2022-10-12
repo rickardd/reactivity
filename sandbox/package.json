@@ -4,11 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "http-server ."
+    "start": "http-server .",
+    "test": "jest --config test.config.js"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^29.1.2",
     "http-server": "^14.1.1"
   }
 }
