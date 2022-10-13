@@ -5,13 +5,16 @@
   "main": "app.js",
   "scripts": {
     "start": "http-server .",
-    "test": "jest --config test.config.js"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "jest": "^29.1.2",
+    "@babel/preset-env": "^7.19.4",
+    "@types/jest": "^29.1.2",
+    "babel-jest": "^29.1.2",
+    "jest-environment-jsdom": "^29.1.2",
     "http-server": "^14.1.1"
   }
 }
