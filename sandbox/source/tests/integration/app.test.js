@@ -13,6 +13,16 @@ const setupView = jest.fn( (viewString, appId) => {
   compute = raccoon.compute 
 })
 
+const setupView2 = jest.fn( (viewString, appId) => {
+  document.body.insertAdjacentHTML("beforeend", viewString)
+    
+  appEl = document.getElementById(appId)
+  const raccoon = new Raccoon(appEl)
+  proxy = raccoon.proxy 
+  compute = raccoon.compute 
+  return {appEl, proxy, compute}
+})
+
 describe("Integration test", () => {
 
   describe("Reactivity", () => {
@@ -22,14 +32,14 @@ describe("Integration test", () => {
       setupView(viewString, 'app')
     })
 
-    describe('proxy properties', () => {
+    describe('proxy properties can be updated', () => {
       it('sets a proxy property', () => {
         proxy.a = 1;
   
         expect(proxy.a).toBe(1)
       });
       
-      it('Increment proxy property', () => {
+      it('increment proxy property', () => {
         proxy.a = 1;
         expect(proxy.a).toBe(1)
         
@@ -127,8 +137,25 @@ describe("Integration test", () => {
       // test that templage {{...}} is updating
 
       describe('Multiple views', () => {
+
         it('handles 2 views', () => {
-          // ToDo
+          const viewString1 = `<div id="app1"></div>`
+          const viewString2 = `<div id="app2"></div>`
+
+          const {appEl: appEl1, proxy: proxy1, compute: compute1} = setupView2(viewString1, 'app1')
+          const {appEl: appEl2, proxy: proxy2, compute: compute2} = setupView2(viewString2, 'app2')
+
+          compute1.aPlusOne = () => proxy1.a + 1
+          compute2.aPlusOne = () => proxy2.a + 1
+          
+          proxy1.a = 1;
+          proxy2.a = 2;
+          
+          expect(proxy1.a).toBe(1)
+          expect(proxy2.a).toBe(2)
+          
+          expect(proxy1.aPlusOne).toBe(2)
+          expect(proxy2.aPlusOne).toBe(3)
         })
       })    
       
