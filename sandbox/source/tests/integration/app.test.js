@@ -136,9 +136,9 @@ describe("Integration test", () => {
 
       // test that templage {{...}} is updating
 
-      describe('Multiple views', () => {
+      describe('Multiple views has one scope per view', () => {
 
-        it('handles 2 views', () => {
+        it('each view has programmatically different scopes', () => {
           const viewString1 = `<div id="app1"></div>`
           const viewString2 = `<div id="app2"></div>`
 
@@ -157,9 +157,28 @@ describe("Integration test", () => {
           expect(proxy1.aPlusOne).toBe(2)
           expect(proxy2.aPlusOne).toBe(3)
         })
+        
+        it('each view has interactively different scopes', () => {
+            // proxy1 and proxy2 are just aliases, the actual name is proxy which means we have two different proxy objects with the same name. 
+            // How do we make this unique per view e.g #app1
+            const viewString1 = `<div id="app1"><button id="button" @click='proxy1.a += 10'>Count Up</button></div>`
+            const viewString2 = `<div id="app2"><button id="button" @click='proxy2.a += 10'>Count Up</button></div>`
+
+            const {appEl: appEl1, proxy: proxy1, compute: compute1} = setupView2(viewString1, 'app1')
+            const {appEl: appEl2, proxy: proxy2, compute: compute2} = setupView2(viewString2, 'app2')
+
+            proxy1.a = 1;
+            proxy2.a = 2;
+
+            appEl1.querySelector("button").click()
+            appEl2.querySelector("button").click()
+
+            expect(proxy1.a).toBe(11)
+            expect(proxy2.a).toBe(12)
+          })
+        })    
       })    
       
     })    
 
   })
-})
