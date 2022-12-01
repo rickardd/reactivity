@@ -51,12 +51,13 @@ function Raccoon(appEl) {
   const proxy = new Reactive(this.compute)
   
   prepareTemplate(appEl)
-  bindDomEvents(proxy)
+
+  bindDomEvents(proxy, appEl)
   bindModelEvents(proxy)
   
   return {
     compute: this.compute,
-    proxy: proxy,
+    proxy,
   }
 }
 
