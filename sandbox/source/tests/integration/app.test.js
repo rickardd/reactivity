@@ -122,8 +122,7 @@ describe("Integration test", () => {
       // :value
     })
 
-    describe('Views', () => {
-
+    describe('Template engine', () => {
       // beforeEach(() => {
       //   const viewString = `
       //     <div id="view">
@@ -136,11 +135,23 @@ describe("Integration test", () => {
       //   setupView(viewString, 'view')
       // })
 
-      // test that templage {{...}} is updating
+      // test both compute and proxy changes
+      it('updates the template {{...}} programatically', () => {
+        // ...
+      })
 
-      describe('Multiple views has one scope per view', () => {
+      // Clicking a button, test both compute and proxy changes
+      it('updates the template {{...}} interactivliy', () => {
+        // ...
+      })
+    })
 
-        it('each view has programmatically different scopes', () => {
+    describe('Multiple components', () => {
+
+
+      describe('has one scope per component', () => {
+
+        it('has programmatically different scopes', () => {
           const viewString1 = `<div id="view-1"></div>`
           const viewString2 = `<div id="view-2"></div>`
 
@@ -161,7 +172,7 @@ describe("Integration test", () => {
         })
         
         
-        it('each component has interactively different scopes', () => {
+        it('has interactively different scopes', () => {
             const componentString1 = `<div id="component-1"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
             const componentString2 = `<div id="component-2"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
             
@@ -181,5 +192,4 @@ describe("Integration test", () => {
       })    
       
     })    
-
   })
