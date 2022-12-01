@@ -18,9 +18,7 @@ const setupView2 = jest.fn( (viewString, appId) => {
     
   appEl = document.getElementById(appId)
   const raccoon = new Raccoon(appEl)
-  proxy = raccoon.proxy 
-  compute = raccoon.compute 
-  return {appEl, proxy, compute}
+  return {appEl, ...raccoon}
 })
 
 describe("Integration test", () => {
@@ -122,28 +120,28 @@ describe("Integration test", () => {
 
     describe('Views', () => {
 
-      beforeEach(() => {
-        const viewString = `
-          <div id="app">
-            <button id="button" @click='proxy.a += 10'>Count Up</button>
-            <div>{{a}}</div>
-            <div>{{b}}</div>
-            <div>{{sum}}</div>
-          </div>
-        `
-        setupView(viewString, 'app')
-      })
+      // beforeEach(() => {
+      //   const viewString = `
+      //     <div id="view">
+      //       <button id="button" @click='proxy.a += 10'>Count Up</button>
+      //       <div>{{a}}</div>
+      //       <div>{{b}}</div>
+      //       <div>{{sum}}</div>
+      //     </div>
+      //   `
+      //   setupView(viewString, 'view')
+      // })
 
       // test that templage {{...}} is updating
 
       describe('Multiple views has one scope per view', () => {
 
         it('each view has programmatically different scopes', () => {
-          const viewString1 = `<div id="app1"></div>`
-          const viewString2 = `<div id="app2"></div>`
+          const viewString1 = `<div id="view-1"></div>`
+          const viewString2 = `<div id="view-2"></div>`
 
-          const {appEl: appEl1, proxy: proxy1, compute: compute1} = setupView2(viewString1, 'app1')
-          const {appEl: appEl2, proxy: proxy2, compute: compute2} = setupView2(viewString2, 'app2')
+          const {appEl: appEl1, proxy: proxy1, compute: compute1} = setupView2(viewString1, 'view-1')
+          const {appEl: appEl2, proxy: proxy2, compute: compute2} = setupView2(viewString2, 'view-2')
 
           compute1.aPlusOne = () => proxy1.a + 1
           compute2.aPlusOne = () => proxy2.a + 1
@@ -158,15 +156,14 @@ describe("Integration test", () => {
           expect(proxy2.aPlusOne).toBe(3)
         })
         
+        
         it('each view has interactively different scopes', () => {
-            // proxy1 and proxy2 are just aliases, the actual name is proxy which means we have two different proxy objects with the same name. 
-            // How do we make this unique per view e.g #app1
-            const viewString1 = `<div id="app1"><button id="button" @click='proxy1.a += 10'>Count Up</button></div>`
-            const viewString2 = `<div id="app2"><button id="button" @click='proxy2.a += 10'>Count Up</button></div>`
-
-            const {appEl: appEl1, proxy: proxy1, compute: compute1} = setupView2(viewString1, 'app1')
-            const {appEl: appEl2, proxy: proxy2, compute: compute2} = setupView2(viewString2, 'app2')
-
+            const viewString1 = `<div id="view-1"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
+            const viewString2 = `<div id="view-2"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
+            
+            const {appEl: appEl1, app1, proxy: proxy1, compute: compute1} = setupView2(viewString1, 'view-1')
+            const {appEl: appEl2, app2, proxy: proxy2, compute: compute2} = setupView2(viewString2, 'view-2')
+            
             proxy1.a = 1;
             proxy2.a = 2;
 
