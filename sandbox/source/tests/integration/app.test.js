@@ -149,14 +149,14 @@ describe("Integration test", () => {
     describe('Multiple components', () => {
 
 
-      describe('has one scope per component', () => {
+      describe('has one scope/proxy per component', () => {
 
         it('has programmatically different scopes', () => {
-          const viewString1 = `<div id="view-1"></div>`
-          const viewString2 = `<div id="view-2"></div>`
-
-          const {appEl: appEl1, proxy: proxy1, compute: compute1} = setupComponent(viewString1, 'view-1')
-          const {appEl: appEl2, proxy: proxy2, compute: compute2} = setupComponent(viewString2, 'view-2')
+          const componentString1 = `<div id="component-1"></div>`
+          const componentString2 = `<div id="component-2"></div>`
+          
+          const {proxy: proxy1, compute: compute1} = setupComponent(componentString1, 'component-1')
+          const {proxy: proxy2, compute: compute2} = setupComponent(componentString2, 'component-2')
 
           compute1.aPlusOne = () => proxy1.a + 1
           compute2.aPlusOne = () => proxy2.a + 1
@@ -176,17 +176,29 @@ describe("Integration test", () => {
             const componentString1 = `<div id="component-1"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
             const componentString2 = `<div id="component-2"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
             
-            const {appEl: appEl1, app1, proxy: proxy1, compute: compute1} = setupComponent(componentString1, 'component-1')
-            const {appEl: appEl2, app2, proxy: proxy2, compute: compute2} = setupComponent(componentString2, 'component-2')
+            const {appEl: appEl1, proxy: proxy1, compute: compute1} = setupComponent(componentString1, 'component-1')
+            const {appEl: appEl2, proxy: proxy2, compute: compute2} = setupComponent(componentString2, 'component-2')
             
             proxy1.a = 1;
             proxy2.a = 2;
+
+            compute1.withDollarSign = () => `$${proxy1.a}`
+            compute2.withDollarSign = () => `$${proxy2.a}`
 
             appEl1.querySelector("button").click()
             appEl2.querySelector("button").click()
 
             expect(proxy1.a).toBe(11)
             expect(proxy2.a).toBe(12)
+
+            expect(proxy1.withDollarSign).toBe("$11")
+            expect(proxy2.withDollarSign).toBe("$12")
+
+            appEl1.querySelector("button").click()
+            appEl2.querySelector("button").click()
+
+            expect(proxy1.withDollarSign).toBe("$21")
+            expect(proxy2.withDollarSign).toBe("$22")
           })
         })    
       })    
