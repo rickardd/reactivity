@@ -201,6 +201,26 @@ describe("Integration test", () => {
             expect(proxy2.withDollarSign).toBe("$22")
           })
         })    
+
+        // Update test or update code to make it possible to execute functions from a @click
+        // ToDo
+        it('has can run functions interactively', () => {
+
+          // myFn is not defined.
+          const myFn = value => Number(proxy.a) + 111
+
+          const componentString1 = `<div id="component-1"><button id="button" @click='myFn(proxy.a)'>Count Up</button></div>`
+          
+          const {appEl, proxy, compute} = setupComponent(componentString1, 'component-1')
+
+          proxy.a = 1;
+
+          compute.withDollarSign = () => `$${proxy.a}`
+
+          appEl.querySelector("button").click()
+
+          expect(proxy.a).toBe(112)
+        })
       })    
       
     })    
