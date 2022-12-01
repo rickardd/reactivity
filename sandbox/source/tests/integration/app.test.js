@@ -4,6 +4,8 @@ let appEl = null
 let proxy = null
 let compute = null
   
+// Set up a view for test witch only requires 1 view.
+// Tests can access the global defined variables proxy and compute for this view.
 const setupView = jest.fn( (viewString, appId) => {
   document.body.innerHTML = viewString
     
@@ -13,8 +15,10 @@ const setupView = jest.fn( (viewString, appId) => {
   compute = raccoon.compute 
 })
 
-const setupView2 = jest.fn( (viewString, appId) => {
-  document.body.insertAdjacentHTML("beforeend", viewString)
+// Similar to above but this returns appEl, proxy, compute rather than setting global variables.
+// Good for tests that requires multiple components
+const setupComponent = jest.fn( (componentString, appId) => {
+  document.body.insertAdjacentHTML("beforeend", componentString)
     
   appEl = document.getElementById(appId)
   const raccoon = new Raccoon(appEl)
@@ -140,8 +144,8 @@ describe("Integration test", () => {
           const viewString1 = `<div id="view-1"></div>`
           const viewString2 = `<div id="view-2"></div>`
 
-          const {appEl: appEl1, proxy: proxy1, compute: compute1} = setupView2(viewString1, 'view-1')
-          const {appEl: appEl2, proxy: proxy2, compute: compute2} = setupView2(viewString2, 'view-2')
+          const {appEl: appEl1, proxy: proxy1, compute: compute1} = setupComponent(viewString1, 'view-1')
+          const {appEl: appEl2, proxy: proxy2, compute: compute2} = setupComponent(viewString2, 'view-2')
 
           compute1.aPlusOne = () => proxy1.a + 1
           compute2.aPlusOne = () => proxy2.a + 1
@@ -157,12 +161,12 @@ describe("Integration test", () => {
         })
         
         
-        it('each view has interactively different scopes', () => {
-            const viewString1 = `<div id="view-1"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
-            const viewString2 = `<div id="view-2"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
+        it('each component has interactively different scopes', () => {
+            const componentString1 = `<div id="component-1"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
+            const componentString2 = `<div id="component-2"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
             
-            const {appEl: appEl1, app1, proxy: proxy1, compute: compute1} = setupView2(viewString1, 'view-1')
-            const {appEl: appEl2, app2, proxy: proxy2, compute: compute2} = setupView2(viewString2, 'view-2')
+            const {appEl: appEl1, app1, proxy: proxy1, compute: compute1} = setupComponent(componentString1, 'component-1')
+            const {appEl: appEl2, app2, proxy: proxy2, compute: compute2} = setupComponent(componentString2, 'component-2')
             
             proxy1.a = 1;
             proxy2.a = 2;
