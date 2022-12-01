@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "http-server .",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "test:pattern": "jest --verbose -t"
   },
   "author": "",
   "license": "ISC",
