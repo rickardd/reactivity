@@ -27,6 +27,8 @@ This should stop on 'debugger' breakpoints in vs code and inspecting values with
 
 Another alternative might be to let the test finish then hit `w` and then `i` (run failing test interactively)
 
+**Run a specific test** `npm run test:pattern "the name or regex of a test"`
+
 ## Advanced testing
 If useing the CLI we have a few more options.
 - jest --watch
