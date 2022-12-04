@@ -38,7 +38,7 @@ const BINDINGS = [
 
 // Execute expression e.g @click='proxy.price += 10' or @input='proxy.price += 10'
 // Proxy needs to be available as it's used in the eval() expression.
-const executeExpression = (el, proxy, attribute) => {
+const executeExpression = (el, proxy, funcs, attribute) => {
   const expression = el.attributes[attribute].value
 
   // Quick and dirty. Eval is risky. 
@@ -46,10 +46,10 @@ const executeExpression = (el, proxy, attribute) => {
 }
 
 // Bind all DOM elements.
-const bind = (proxy, appEl) => {
+const bind = (proxy, funcs, appEl) => {
   const bindElements = (selector, attribute, eventName) => {
     Array.from(appEl.querySelectorAll(selector)).forEach( el => {
-      el.addEventListener(eventName, executeExpression.bind(this, el, proxy, attribute)) 
+      el.addEventListener(eventName, executeExpression.bind(this, el, proxy, funcs, attribute)) 
     })
   }
 
