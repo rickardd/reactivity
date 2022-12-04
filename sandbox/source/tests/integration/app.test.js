@@ -202,24 +202,42 @@ describe("Integration test", () => {
           })
         })    
 
-        // Update test or update code to make it possible to execute functions from a @click
-        // ToDo
-        it('has can run functions interactively', () => {
-
-          // myFn is not defined.
-          const myFn = value => Number(proxy.a) + 111
-
-          const componentString1 = `<div id="component-1"><button id="button" @click='myFn(proxy.a)'>Count Up</button></div>`
+        it('can run functions interactively', () => {
+          const componentString1 = `<div id="component-1"><button id="button" @click='funcs.myFn(proxy, proxy.a)'>Count Up</button></div>`
+          const componentString2 = `<div id="component-2"><button id="button" @click='funcs.myFn(proxy)'>Count Up</button></div>`
           
-          const {appEl, proxy, compute} = setupComponent(componentString1, 'component-1')
+          const {appEl: appEl1, proxy: proxy1, compute: compute1, funcs: funcs1} = setupComponent(componentString1, 'component-1')
+          const {appEl: appEl2, proxy: proxy2, compute: compute2, funcs: funcs2} = setupComponent(componentString2, 'component-2')
+          
+          proxy1.a = 1;
+          proxy2.a = 2;
+          
+          // How can we NOT pass in proxy but still have access to it in the function.
+          // Can higher order func solve this?
+          funcs1.myFn = (proxy,value) => proxy.a = Number(value) + 111
+          funcs2.myFn = (proxy) => proxy.a = proxy.a * 2
 
-          proxy.a = 1;
+          // Can this be scopes so we're using proxy.a rather than proxy1.a?
+          compute1.withDollarSign = () => `$${proxy1.a}`
+          compute2.withDollarSign = () => `$${proxy2.a}`
 
-          compute.withDollarSign = () => `$${proxy.a}`
+          appEl1.querySelector("button").click()
+          appEl2.querySelector("button").click()
 
-          appEl.querySelector("button").click()
+          expect(proxy1.a).toBe(112)
+          expect(proxy2.a).toBe(4)
 
-          expect(proxy.a).toBe(112)
+          expect(proxy1.withDollarSign).toBe("$112")
+          expect(proxy2.withDollarSign).toBe("$4")
+
+          appEl1.querySelector("button").click()
+          appEl2.querySelector("button").click()
+
+          expect(proxy1.a).toBe(223)
+          expect(proxy2.a).toBe(8)
+
+          expect(proxy1.withDollarSign).toBe("$223")
+          expect(proxy2.withDollarSign).toBe("$8")
         })
       })    
       
