@@ -123,26 +123,40 @@ describe("Integration test", () => {
     })
 
     describe('Template engine', () => {
-      // beforeEach(() => {
-      //   const viewString = `
-      //     <div id="view">
-      //       <button id="button" @click='proxy.a += 10'>Count Up</button>
-      //       <div>{{a}}</div>
-      //       <div>{{b}}</div>
-      //       <div>{{sum}}</div>
-      //     </div>
-      //   `
-      //   setupView(viewString, 'view')
-      // })
-
-      // test both compute and proxy changes
-      it('updates the template {{...}} programatically', () => {
-        // ...
+      beforeEach(() => {
+        const viewString = `
+          <div id="view">
+            <button id="buttonA" @click='proxy.a += 1'>Count Up</button>
+            <button id="buttonB" @click='proxy.b += 2'>Count Up</button>
+            <div id="valueA">{{a}}</div>
+            <div id="valueB">{{b}}</div>
+            <div id="sum">{{sum}}</div>
+          </div>
+        `
+        setupView(viewString, 'view')
       })
 
       // Clicking a button, test both compute and proxy changes
-      it('updates the template {{...}} interactivliy', () => {
-        // ...
+      // As the {{...}} template engine takes a ms to run
+      // the test is failing, consider implementing testing library and/or jest-dom
+      // to use e.g waitFor()...
+      it('updates the template {{...}} interactively', async () => {
+        
+        // proxy.a = 1
+        // proxy.b = 2
+
+        // compute.sum = () => `$${proxy.a + proxy.b}`
+
+        // expect(appEl.querySelector("#valueAa").innerText).toBe(1)
+        // expect(appEl.querySelector("#valueBa").innerText).toBe(2)
+        // expect(appEl.querySelector("#suma").innerText).toBe("")
+
+        // appEl.querySelector("buttonA").click()
+        // appEl.querySelector("buttonB").click()
+
+        // expect(appEl.querySelector("valueA").text).toBe(11)
+        // expect(appEl.querySelector("valueB").text).toBe(11)
+        // expect(appEl.querySelector("sum").text).toBe(11)
       })
     })
 
