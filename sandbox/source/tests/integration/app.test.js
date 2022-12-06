@@ -203,8 +203,8 @@ describe("Integration test", () => {
         })    
 
         it('can run functions interactively', () => {
-          const componentString1 = `<div id="component-1"><button id="button" @click='funcs.myFn(proxy, proxy.a)'>Count Up</button></div>`
-          const componentString2 = `<div id="component-2"><button id="button" @click='funcs.myFn(proxy)'>Count Up</button></div>`
+          const componentString1 = `<div id="component-1"><button id="button" @click='funcs.myFn(proxy.a)'>Count Up</button></div>`
+          const componentString2 = `<div id="component-2"><button id="button" @click='funcs.myFn()'>Count Up</button></div>`
           
           const {appEl: appEl1, proxy: proxy1, compute: compute1, funcs: funcs1} = setupComponent(componentString1, 'component-1')
           const {appEl: appEl2, proxy: proxy2, compute: compute2, funcs: funcs2} = setupComponent(componentString2, 'component-2')
@@ -212,9 +212,8 @@ describe("Integration test", () => {
           proxy1.a = 1;
           proxy2.a = 2;
           
-          // How can we NOT pass in proxy but still have access to it in the function.
-          // Can higher order func solve this?
-          funcs1.myFn = (proxy,value) => proxy.a = Number(value) + 111
+          // The first argument will always be the proxy which is applied by the framework.
+          funcs1.myFn = (proxy, value) => proxy.a = Number(value) + 111
           funcs2.myFn = (proxy) => proxy.a = proxy.a * 2
 
           // Can this be scopes so we're using proxy.a rather than proxy1.a?
