@@ -34,6 +34,7 @@ describe("Integration test", () => {
       setupView(viewString, 'app')
     })
 
+    // Might be redundant due to later tests
     describe('proxy properties can be updated', () => {
       it('sets a proxy property', () => {
         proxy.a = 1;
@@ -54,6 +55,7 @@ describe("Integration test", () => {
       // delete property with delete
     })
     
+    // Might be redundant due to later tests
     describe('compute methods', () => {
       it('calculates the sum of proxy.a and proxy.b', () => {
         compute.sum = () => proxy.a + proxy.b
@@ -65,6 +67,7 @@ describe("Integration test", () => {
       });
     })
     
+    // Might be redundant due to later tests
     describe('compute methods updates when property value changes', () => {
       it('calculates the sum of proxy.a and proxy.b', () => {
         compute.sum = () => proxy.a + proxy.b
@@ -82,18 +85,17 @@ describe("Integration test", () => {
     })
 
     describe('DOM events', () => {
-
-      beforeEach(() => {
-        const viewString = `
-          <div id="app">
-            <button id="button" @click='proxy.a += 10'>Count Up</button>
-          </div>
-        `
-        setupView(viewString, 'app')
-      })
-
+      // Might be redundant due to later tests
       describe('@click', () => {
         it('execute method expression', () => {
+
+          const viewString = `
+            <div id="app">
+              <button id="button" @click='proxy.a += 10'>Count Up</button>
+            </div>
+          `
+          setupView(viewString, 'app')
+          
           proxy.a = 1;
 
           // Click counts proxy.a up by 10
@@ -103,19 +105,65 @@ describe("Integration test", () => {
         });
       })
       
-      describe('@input', () => {
-        it('...', () => {
-          // ....
+      // WIP
+      describe('@input [change and key up events]', () => {
+        // change event not triggered in test. Install more packages?
+        it('updates the proxy when input value changes and vice versa', () => {
+
+          const viewString = `
+            <div id="app">
+              <label for="price">Price</label>
+              <input id="price" type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          const inputEl = appEl.querySelector("#price")
+
+          proxy.price = 1
+
+          // How do we trigger a change event?
+          // fireEvent change testing library
+          // Or user event - https://testing-library.com/docs/user-event/intro
+          expect(inputEl.value).toBe("1")
+          // Also test key up events
+          
+          inputEl.value = 2
+          
+          expect(inputEl.value).toBe("2")
+          expect(proxy.price).toBe(2)         
         });
       })
-            
-      describe('@input', () => {
-        it('...', () => {
-          // ....
+
+      // WIP
+      describe('@change [change event only]', () => {
+        // change event not triggered in test. Install more packages?
+        it('updates the proxy when input value changes and vice versa', () => {
+
+          const viewString = `
+            <div id="app">
+              <label for="price">Price</label>
+              <input id="price" type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          const inputEl = appEl.querySelector("#price")
+
+          proxy.price = 1
+
+          // How do we trigger a change event?
+          // fireEvent change testing library
+          // Or user event - https://testing-library.com/docs/user-event/intro
+          expect(inputEl.value).toBe("1")
+          
+          inputEl.value = 2
+          
+          expect(inputEl.value).toBe("2")
+          expect(proxy.price).toBe(2)         
         });
       })
       
-      // @change
       // @keyup
       // @keydown
       // r-model
@@ -162,7 +210,6 @@ describe("Integration test", () => {
 
     describe('Multiple components', () => {
 
-
       describe('has one scope/proxy per component', () => {
 
         it('has programmatically different scopes', () => {
@@ -184,7 +231,6 @@ describe("Integration test", () => {
           expect(proxy1.aPlusOne).toBe(2)
           expect(proxy2.aPlusOne).toBe(3)
         })
-        
         
         it('has interactively different scopes', () => {
             const componentString1 = `<div id="component-1"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`
