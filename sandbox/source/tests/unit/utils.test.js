@@ -1,4 +1,4 @@
-import { getElements } from "../utils.js";
+import { getElements } from "../../utils/utils.js";
 
 describe("utils.js", () => {
 

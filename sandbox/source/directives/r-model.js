@@ -1,4 +1,4 @@
-import { getElements } from "../utils.js";
+import { getElements } from "../utils/utils.js";
 
 const SELECTOR = '[r-model]'
 const ATTRIBUTE = 'r-model'

@@ -8,7 +8,7 @@ const DATA_BINDING_SELECTOR = '[data-element-binding]'
 function prepare(appEl) {
   const markToken = (match, variable) => `<span ${DATA_BINDING_STRING}=${variable}></span>`
 
-  const content = appEl.innerHTML.replace(/\{\{(.*)\}\}/g, markToken)
+  const content = appEl.innerHTML?.replace(/\{\{(.*)\}\}/g, markToken) // ? optional chaining in case appEl has not content.
 
   appEl.innerHTML = content
 }

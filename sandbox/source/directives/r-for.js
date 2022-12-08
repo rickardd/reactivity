@@ -1,5 +1,5 @@
-import { getElements } from "../utils.js";
-import { DATA_BINDING_SELECTOR } from "../template-engine.js";
+import { getElements } from "../utils/utils.js";
+import { DATA_BINDING_SELECTOR } from "../template/template-engine.js";
 
 const FOR_SELECTOR = '[r-for]'
 const FOR_ATTRIBUTE = 'r-for'
