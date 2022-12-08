@@ -6,7 +6,9 @@
   "scripts": {
     "start": "http-server .",
     "test": "jest --verbose",
-    "test:pattern": "jest --verbose -t"
+    "test:watch": "jest --watch --verbose",
+    "test:pattern": "jest --verbose -t",
+    "test:watch:pattern": "jest --watch --verbose -t"
   },
   "author": "",
   "license": "ISC",

@@ -21,13 +21,27 @@ $ npm run test
 cd into the sandbox folder
 nvm use
 in vscode run 'Debug: JavaScript Debug Terminal'
-npm run test --watch
+`npm run test --watch`
+or
+`npm run test:watch`
+
+
 
 This should stop on 'debugger' breakpoints in vs code and inspecting values with the mouse is possible. 
 
 Another alternative might be to let the test finish then hit `w` and then `i` (run failing test interactively)
 
-**Run a specific test** `npm run test:pattern "the name or regex of a test"`
+**Run a specific test** 
+`npm run test:pattern "the name or regex of a test"`
+or
+`npm run test:watch:pattern "the name or regex of a test"`
+
+**or* add `.only`
+```
+test.only('this will be the only test that runs', () => {
+  expect(true).toBe(false);
+});
+```
 
 ## Advanced testing
 If useing the CLI we have a few more options.
