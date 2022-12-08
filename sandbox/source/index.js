@@ -2,27 +2,18 @@ import { prepare as prepareTemplate } from './template-engine.js'
 import { bind as bindDomEvents } from "./dom-events.js";
 import { bind as bindModelEvents } from "./dom-model-events.js";
 import { Reactive } from "./core/reactive.js";
+import { createFuncProxy } from "./core/funcs.js";
 
 function Raccoon(appEl) {
   this.compute = {}
   const proxy = new Reactive(this.compute)
   
-  // Creates a proxy object to hold functions.
-  // Applies the proxy to the argument list to each
-  // function that's added to the funcs object e.g func.myFunk('1') 
-  // will have corresponding function function myFunc(proxy, value) {...}
-  this.funcs = new Proxy({}, { 
-    set(fnObj, fnKey, fn) {
-      if (typeof fn !== 'function') {
-        throw new Error `Argument ${fnKey} has to be of type function`
-      }
-      fnObj[fnKey] = fn.bind(proxy, proxy)
-      return true // Fixes a proxy trap issue but why is this needed? What should it return?
-    },
-  })
+  // functions has it's own proxy to listen to set and get. 
+  // E.g <button @click="func.addUser"> will need to run and
+  // access the main proxy to use it's values.
+  this.funcs = createFuncProxy(proxy)
   
   prepareTemplate(appEl)
-
   bindDomEvents(proxy, this.funcs, appEl)
   bindModelEvents(proxy)
   
