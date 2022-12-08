@@ -1,4 +1,4 @@
-import { getElements } from "./utils.js";
+import { getElements } from "../utils.js";
 
 const VALUE_SELECTOR = '[\\:value]'
 const VALUE_ATTRIBUTE = ':value'

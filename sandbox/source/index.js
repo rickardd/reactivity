@@ -1,6 +1,6 @@
 import { prepare as prepareTemplate } from './template-engine.js'
-import { bind as bindDomEvents } from "./dom-events.js";
-import { bind as bindModelEvents } from "./dom-model-events.js";
+import { bind as bindDomEvents } from "./directives/input-events.js";
+import { bind as bindModelEvents } from "./directives/r-model.js";
 import { Reactive } from "./core/reactive.js";
 import { createFuncProxy } from "./core/funcs.js";
 
