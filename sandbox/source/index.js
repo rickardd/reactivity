@@ -7,10 +7,6 @@ import { createFuncProxy } from "./core/funcs.js";
 function Raccoon(appEl) {
   this.compute = {}
   const proxy = new Reactive(this.compute)
-  
-  // functions has it's own proxy to listen to set and get. 
-  // E.g <button @click="func.addUser"> will need to run and
-  // access the main proxy to use it's values.
   this.funcs = createFuncProxy(proxy)
   
   prepareTemplate(appEl)
