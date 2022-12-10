@@ -2,12 +2,11 @@ import { render } from "../core/render.js";
 
 function Reactive(compute) {
   const self = this
-  this.computeMap = new Map() // Holds computed method e.g {sum: fn() {..}, ...}
 
   const proxyHandler = {
     set(proxyMap, property, value) {
       proxyMap.set(property, value) // Set values defined by proxy e.g proxy.price - (none computed values)
-      render(proxyMap, compute, self.computeMap)
+      render(proxyMap, compute)
       return true // Fixes a proxy trap issue but why is this needed? What should it return?
     },
     get(proxyMap, property) {
