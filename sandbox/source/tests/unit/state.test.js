@@ -7,11 +7,6 @@ describe("state.js", () => {
 
   describe("set and get states", () => {
 
-    // Commit earlier state
-    // Refactor this to use before all
-    // declare let proxy1, compute1, etc here.
-
-
     const getTwoComponentsAndTwoStates = () => {
 
         const component1 = new Raccoon(document)
