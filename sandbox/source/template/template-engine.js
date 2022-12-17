@@ -21,7 +21,7 @@ function update(proxyMap) {
   els.forEach(el => {
       const value = proxyMap.get(el.dataset.elementBinding)
       if (value) {
-        el.innerText = value
+        el.textContent = value
       }
   })
 }
