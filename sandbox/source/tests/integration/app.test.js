@@ -186,28 +186,25 @@ describe("Integration test", () => {
         setupView(viewString, 'view')
       })
 
-      // Clicking a button, test both compute and proxy changes
-      // As the {{...}} template engine takes a ms to run
-      // the test is failing, consider implementing testing library and/or jest-dom
-      // to use e.g waitFor()...
+      // Clicking a button, then test both compute and proxy changes are reflected in the HTML output
       it('updates the template {{...}} interactively', async () => {
-        
-        // proxy.a = 1
-        // proxy.b = 2
+        proxy.a = 1
+        proxy.b = 2
 
-        // compute.sum = () => `$${proxy.a + proxy.b}`
+        compute.sum = () => `$${proxy.a + proxy.b}`
 
-        // expect(appEl.querySelector("#valueAa").innerText).toBe(1)
-        // expect(appEl.querySelector("#valueBa").innerText).toBe(2)
-        // expect(appEl.querySelector("#suma").innerText).toBe("")
+        expect(appEl.querySelector("#valueA").textContent).toBe("1")
+        expect(appEl.querySelector("#valueB").textContent).toBe("2")
+        expect(appEl.querySelector("#sum").textContent).toBe("")
 
-        // appEl.querySelector("buttonA").click()
-        // appEl.querySelector("buttonB").click()
+        appEl.querySelector("#buttonA").click()
+        appEl.querySelector("#buttonB").click()
 
-        // expect(appEl.querySelector("valueA").text).toBe(11)
-        // expect(appEl.querySelector("valueB").text).toBe(11)
-        // expect(appEl.querySelector("sum").text).toBe(11)
+        expect(appEl.querySelector("#valueA").textContent).toBe("2")
+        expect(appEl.querySelector("#valueB").textContent).toBe("4")
+        expect(appEl.querySelector("#sum").textContent).toBe("$6")
       })
+
     })
 
     describe('Multiple components', () => {
@@ -300,7 +297,7 @@ describe("Integration test", () => {
           expect(proxy1.withDollarSign).toBe("$223")
           expect(proxy2.withDollarSign).toBe("$8")
         })
-      })    
+    })
       
-    })    
   })
+})
