@@ -189,8 +189,86 @@ describe("Integration test", () => {
         });
       })
       
-      // @keyup
-      // @keydown
+      describe('@keyup - reacts on key up event only', () => {
+        it('updates the proxy when input value changes and vice versa', () => {
+          const viewString = `
+            <div id="app">
+              <label for="price">Price</label>
+              <input type="number" @keyup="proxy.price = Number(event.target.value)" :value="proxy.price">
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          const inputEl = appEl.querySelector("input")
+
+          proxy.price = 1
+
+          expect(inputEl.value).toBe("1")
+          
+          // testing change event
+          inputEl.value = 2
+          inputEl.dispatchEvent(new Event('keyup'));
+          
+          expect(inputEl.value).toBe("2")
+          expect(proxy.price).toBe(2)         
+          
+          // Test that following events doesn't update the proxy
+          inputEl.value = 3
+          
+          inputEl.dispatchEvent(new Event('input'));
+          inputEl.dispatchEvent(new Event('change'));
+          inputEl.dispatchEvent(new Event('keydown'));
+          inputEl.dispatchEvent(new Event('keypress'));
+          inputEl.dispatchEvent(new Event('select'));
+          inputEl.dispatchEvent(new Event('focus'));
+          inputEl.dispatchEvent(new Event('blur'));
+          inputEl.dispatchEvent(new Event('submit'));
+          inputEl.dispatchEvent(new Event('click'));
+          
+          expect(proxy.price).not.toBe(3)
+        });
+      })
+      
+      describe('@keydown - reacts on key up event only', () => {
+        it('updates the proxy when input value changes and vice versa', () => {
+          const viewString = `
+            <div id="app">
+              <label for="price">Price</label>
+              <input type="number" @keydown="proxy.price = Number(event.target.value)" :value="proxy.price">
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          const inputEl = appEl.querySelector("input")
+
+          proxy.price = 1
+
+          expect(inputEl.value).toBe("1")
+          
+          // testing change event
+          inputEl.value = 2
+          inputEl.dispatchEvent(new Event('keydown'));
+          
+          expect(inputEl.value).toBe("2")
+          expect(proxy.price).toBe(2)         
+          
+          // Test that following events doesn't update the proxy
+          inputEl.value = 3
+          
+          inputEl.dispatchEvent(new Event('input'));
+          inputEl.dispatchEvent(new Event('change'));
+          inputEl.dispatchEvent(new Event('keyup'));
+          inputEl.dispatchEvent(new Event('keypress'));
+          inputEl.dispatchEvent(new Event('select'));
+          inputEl.dispatchEvent(new Event('focus'));
+          inputEl.dispatchEvent(new Event('blur'));
+          inputEl.dispatchEvent(new Event('submit'));
+          inputEl.dispatchEvent(new Event('click'));
+          
+          expect(proxy.price).not.toBe(3)
+        });
+      })
+      
       // r-model
       // :value
     })
