@@ -87,6 +87,14 @@ jest.setTimeout(6000) // 6s
 ```
 ## General good to know
 
+**Trigger input events**
+Run `dispatchEvent(new Event([event name]))` after setting an event to trigger the event
+e.g `mousemove` `keyup` `submit` etc.
+```js
+inputEl.value = 2
+inputEl.dispatchEvent(new Event('change'));
+```
+
 **innerText vs textContent**
 
 Both are returning all text including children but innerText also returns some dom elements.
