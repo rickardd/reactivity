@@ -105,64 +105,87 @@ describe("Integration test", () => {
         });
       })
       
-      // WIP
-      describe('@input [change and key up events]', () => {
-        return
-        // change event not triggered in test. Install more packages?
+      describe('@input - reacts on change and key-up events', () => {
         it('updates the proxy when input value changes and vice versa', () => {
-
           const viewString = `
             <div id="app">
               <label for="price">Price</label>
-              <input id="price" type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
+              <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
           setupView(viewString, 'app')
           
-          const inputEl = appEl.querySelector("#price")
+          const inputEl = appEl.querySelector("input")
 
           proxy.price = 1
 
-          // How do we trigger a change event?
-          // fireEvent change testing library
-          // Or user event - https://testing-library.com/docs/user-event/intro
           expect(inputEl.value).toBe("1")
-          // Also test key up events
           
+          // testing change event
           inputEl.value = 2
+          inputEl.dispatchEvent(new Event('change'));
           
           expect(inputEl.value).toBe("2")
           expect(proxy.price).toBe(2)         
+          
+          // testing key up event
+          inputEl.value = 3
+          inputEl.dispatchEvent(new Event('keyup'));
+          
+          expect(inputEl.value).toBe("3")
+          expect(proxy.price).toBe(3)  
+          
+          // Test that following events doesn't update the proxy
+          inputEl.value = 4
+          inputEl.dispatchEvent(new Event('keydown'));
+          inputEl.dispatchEvent(new Event('keypress'));
+          inputEl.dispatchEvent(new Event('select'));
+          inputEl.dispatchEvent(new Event('focus'));
+          inputEl.dispatchEvent(new Event('blur'));
+          inputEl.dispatchEvent(new Event('submit'));
+          inputEl.dispatchEvent(new Event('click'));
+          inputEl.dispatchEvent(new Event('input'));
+
+          expect(proxy.price).not.toBe(4)  
         });
       })
 
-      // WIP
-      describe('@change [change event only]', () => {
-        return
-        // change event not triggered in test. Install more packages?
+      describe('@change - reacts on change event only', () => {
         it('updates the proxy when input value changes and vice versa', () => {
-
           const viewString = `
             <div id="app">
               <label for="price">Price</label>
-              <input id="price" type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
+              <input type="number" @change="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
           setupView(viewString, 'app')
           
-          const inputEl = appEl.querySelector("#price")
+          const inputEl = appEl.querySelector("input")
 
           proxy.price = 1
 
-          // How do we trigger a change event?
-          // fireEvent change testing library
-          // Or user event - https://testing-library.com/docs/user-event/intro
           expect(inputEl.value).toBe("1")
           
+          // testing change event
           inputEl.value = 2
+          inputEl.dispatchEvent(new Event('change'));
           
           expect(inputEl.value).toBe("2")
           expect(proxy.price).toBe(2)         
+          
+          // Test that following events doesn't update the proxy
+          inputEl.value = 3
+          inputEl.dispatchEvent(new Event('keyup'));
+          inputEl.dispatchEvent(new Event('keydown'));
+          inputEl.dispatchEvent(new Event('keypress'));
+          inputEl.dispatchEvent(new Event('select'));
+          inputEl.dispatchEvent(new Event('focus'));
+          inputEl.dispatchEvent(new Event('blur'));
+          inputEl.dispatchEvent(new Event('submit'));
+          inputEl.dispatchEvent(new Event('click'));
+          inputEl.dispatchEvent(new Event('input'));
+          
+          expect(proxy.price).not.toBe(3)
         });
       })
       
