@@ -4,10 +4,11 @@ const SELECTOR = '[r-model]'
 const ATTRIBUTE = 'r-model'
 
 const update = (el, proxy, attribute) => {
-  const property = el.attributes[attribute].value
+  const property = el.attributes[attribute].value.replace("proxy.", "")
   let value = el.value
   
   value = Number(value) ? Number(value) : value
+
   
   proxy[property] = value
 }
