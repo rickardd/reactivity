@@ -269,8 +269,128 @@ describe("Integration test", () => {
         });
       })
       
-      // r-model
-      // :value
+      describe('r-model - reacts on key up event only', () => {
+        it('updates the proxy when input value changes and vice versa', () => {
+          const viewString = `
+            <div id="app">
+              <input id="inputEl" type="number" r-model="price">
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          const inputEl = appEl.querySelector("#inputEl")
+
+          proxy.price = 1
+          proxy.tax = 10
+
+          expect(inputEl.value).toBe("1")
+          
+          // testing change event
+          inputEl.value = 2
+          inputEl.dispatchEvent(new Event('change'));
+          
+          expect(inputEl.value).toBe("2")
+          expect(proxy.price).toBe(2)    
+
+          // testing keyup event
+          inputEl.value = 3
+          inputEl.dispatchEvent(new Event('keyup'));
+          
+          expect(inputEl.value).toBe("3")
+          expect(proxy.price).toBe(3)    
+          
+          // Test that following events doesn't update the proxy
+          inputEl.value = 4
+          
+          inputEl.dispatchEvent(new Event('input'));
+          inputEl.dispatchEvent(new Event('keypress'));
+          inputEl.dispatchEvent(new Event('select'));
+          inputEl.dispatchEvent(new Event('focus'));
+          inputEl.dispatchEvent(new Event('blur'));
+          inputEl.dispatchEvent(new Event('submit'));
+          inputEl.dispatchEvent(new Event('click'));
+          
+          expect(proxy.price).not.toBe(4)
+        });
+
+        it('works with prefixed proxy e.g r-model="proxy.price"', () => {
+          const viewString = `
+            <div id="app">
+              <input id="inputEl" type="number" r-model="proxy.price">
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          const inputEl = appEl.querySelector("#inputEl")
+
+          proxy.price = 1
+
+          expect(inputEl.value).toBe("1")
+          
+          // testing change event
+          inputEl.value = 2
+          inputEl.dispatchEvent(new Event('change'));
+          
+          expect(inputEl.value).toBe("2")
+          expect(proxy.price).toBe(2)    
+
+          // testing keyup event
+          inputEl.value = 3
+          inputEl.dispatchEvent(new Event('keyup'));
+          
+          expect(inputEl.value).toBe("3")
+          expect(proxy.price).toBe(3)    
+          
+          // Test that following events doesn't update the proxy
+          inputEl.value = 4
+          
+          inputEl.dispatchEvent(new Event('input'));
+          inputEl.dispatchEvent(new Event('keypress'));
+          inputEl.dispatchEvent(new Event('select'));
+          inputEl.dispatchEvent(new Event('focus'));
+          inputEl.dispatchEvent(new Event('blur'));
+          inputEl.dispatchEvent(new Event('submit'));
+          inputEl.dispatchEvent(new Event('click'));
+          
+          expect(proxy.price).not.toBe(4)
+        });
+
+      })
+
+      describe(':value - reacts to no input events', () => {
+        it('updates only when the proxy value has changed', () => {
+          const viewString = `
+            <div id="app">
+              <label for="price">Price</label>
+              <input type="number" :value="proxy.price">
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          const inputEl = appEl.querySelector("input")
+
+          proxy.price = 1
+
+          expect(inputEl.value).toBe("1")
+          
+          // Test that following events doesn't update the proxy
+          inputEl.value = 2
+          
+          inputEl.dispatchEvent(new Event('keyup'));
+          inputEl.dispatchEvent(new Event('keydown'));
+          inputEl.dispatchEvent(new Event('input'));
+          inputEl.dispatchEvent(new Event('change'));
+          inputEl.dispatchEvent(new Event('keypress'));
+          inputEl.dispatchEvent(new Event('select'));
+          inputEl.dispatchEvent(new Event('focus'));
+          inputEl.dispatchEvent(new Event('blur'));
+          inputEl.dispatchEvent(new Event('submit'));
+          inputEl.dispatchEvent(new Event('click'));
+          
+          expect(proxy.price).not.toBe(2)
+        });
+      })
+    
     })
 
     describe('Template engine', () => {
