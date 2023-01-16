@@ -6,7 +6,7 @@ function createFuncProxy(proxy) {
     return new Proxy({}, { 
         set(fnObj, fnKey, fn) {
             if (typeof fn !== 'function') {
-            throw new Error `Argument ${fnKey} has to be of type function`
+                throw new Error(`Argument ${fnKey} has to be of type function`)
             }
             fnObj[fnKey] = fn.bind(proxy, proxy)
             return true // Fixes a proxy trap issue but why is this needed? What should it return?
