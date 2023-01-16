@@ -12,12 +12,12 @@ function Reactive(compute) {
     get(proxyMap, property) {
       return proxyMap.get(property)
     },
-    deleteProperty(proxyMap, property) { // e.g delete proxy.names
-      // if (!(property in proxyMap)) { return false; }
-      // return proxyMap.removeItem(property);
-      console.log('deleteProperty()');
-      return true
-    },
+    // deleteProperty(proxyMap, property) { // e.g delete proxy.names
+    //   // if (!(property in proxyMap)) { return false; }
+    //   // return proxyMap.removeItem(property);
+    //   // console.log('deleteProperty()');
+    //   // return true
+    // },
   }
 
   return new Proxy(new Map, proxyHandler);
