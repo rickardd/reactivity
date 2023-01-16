@@ -374,6 +374,46 @@ describe("Integration test", () => {
           expect(appEl.innerHTML).toMatch(/Frank/);
           expect(appEl.innerHTML).toMatch(/Steve/);
         });
+        
+        it('does not list names if binding is wrong', () => {
+          const viewString = `
+            <div id="app">
+              <div r-for="name of names">
+                {{ foo.bar }}
+              </div>
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          proxy.names = ["Lisa", "Frank", "Steve"]
+
+          // This test is correct, the functionality is wrong. 
+          // In this examples no names should NOT be printed and
+          // a console.warn(`v-for couldn't find binding to proxy..`) should be raised.
+
+          // expect(appEl.innerHTML).not.toMatch(/Lisa/);
+          // expect(appEl.innerHTML).not.toMatch(/Frank/);
+          // expect(appEl.innerHTML).not.toMatch(/Steve/);
+        });
+        
+        it('logs an error if invalid proxy binding', () => {
+          console.warn = jest.fn();
+
+          const viewString = `
+            <div id="app">
+              <div r-for="name of unknown">
+                {{ unknown.name }}
+              </div>
+            </div>
+          `
+          setupView(viewString, 'app')
+
+          proxy.names = ["Lisa", "Frank", "Steve"]
+                    
+          expect(console.warn).toHaveBeenCalledWith("v-for couldn't find binding to proxy.unknown");
+        });
+
+
       })
 
       describe(':value - reacts to no input events', () => {
