@@ -357,6 +357,25 @@ describe("Integration test", () => {
 
       })
 
+      describe('r-for', () => {
+        it('lists names with a loop', () => {
+          const viewString = `
+            <div id="app">
+              <div r-for="name of names">
+                {{ names.name }}
+              </div>
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          proxy.names = ["Lisa", "Frank", "Steve"]
+
+          expect(appEl.innerHTML).toMatch(/Lisa/);
+          expect(appEl.innerHTML).toMatch(/Frank/);
+          expect(appEl.innerHTML).toMatch(/Steve/);
+        });
+      })
+
       describe(':value - reacts to no input events', () => {
         it('updates only when the proxy value has changed', () => {
           const viewString = `
