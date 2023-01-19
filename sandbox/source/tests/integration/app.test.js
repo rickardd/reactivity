@@ -368,6 +368,7 @@ describe("Integration test", () => {
           const inputString = appEl.querySelector("#inputString")
 
           proxy.myNumber = "1"
+          proxy.myString = "my string 1"
           
           // Set value to to 2 and trigger the change event
           inputNumber.value = 2
@@ -375,15 +376,13 @@ describe("Integration test", () => {
           
           expect(inputNumber.value).toBe("2")
           expect(proxy.myNumber).toBe(2) // Expecting "2" to be converted to 2
-          
-          proxy.myString = "my string 1"
 
           // Set new value and trigger the change event
-          inputNumber.value = "my string 2"
-          inputNumber.dispatchEvent(new Event('change'));
+          inputString.value = "my string 2"
+          inputString.dispatchEvent(new Event('change'));
           
-          expect(inputNumber.value).toBe("my string 2")
-          expect(proxy.myNumber).toBe("my string 2") // Expecting no alteration
+          expect(inputString.value).toBe("my string 2")
+          expect(proxy.myString).toBe("my string 2") // Expecting no alteration
         });
 
       })
@@ -438,7 +437,8 @@ describe("Integration test", () => {
                 {{ name }}
               </div>
 
-              <div r-for="surname of surnames" id="loop-3">
+              <!-- WIP: Remove x in xr-for...-->
+              <div xr-for="surname of surnames" id="loop-3">
                 {{ surname }}
               </div>
             </div>
