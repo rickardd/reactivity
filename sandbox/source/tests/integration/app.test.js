@@ -354,6 +354,37 @@ describe("Integration test", () => {
           
           expect(proxy.price).not.toBe(4)
         });
+        
+        it('treats numbers as numbers and strings as strings (r-model)', () => {
+          const viewString = `
+            <div id="app">
+              <input id="inputNumber" type="number" r-model="proxy.myNumber">
+              <input id="inputString" type="text" r-model="proxy.myString">
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          const inputNumber = appEl.querySelector("#inputNumber")
+          const inputString = appEl.querySelector("#inputString")
+
+          proxy.myNumber = "1"
+          
+          // Set value to to 2 and trigger the change event
+          inputNumber.value = 2
+          inputNumber.dispatchEvent(new Event('change'));
+          
+          expect(inputNumber.value).toBe("2")
+          expect(proxy.myNumber).toBe(2) // Expecting "2" to be converted to 2
+          
+          proxy.myString = "my string 1"
+
+          // Set new value and trigger the change event
+          inputNumber.value = "my string 2"
+          inputNumber.dispatchEvent(new Event('change'));
+          
+          expect(inputNumber.value).toBe("my string 2")
+          expect(proxy.myNumber).toBe("my string 2") // Expecting no alteration
+        });
 
       })
 

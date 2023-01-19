@@ -9,7 +9,6 @@ const update = (el, proxy, attribute) => {
   
   value = Number(value) ? Number(value) : value
 
-  
   proxy[property] = value
 }
 
