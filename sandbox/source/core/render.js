@@ -4,7 +4,9 @@ import { updateInput as updateInputValue, updateModel as updateModelValue } from
 import { update as updateFor } from "../directives/r-for.js";
 
 function render(proxy, compute = null) {  
-    if(compute && Object.entries(compute).length) updateCompute(proxy, compute) // executes compute functions and stores the result on the proxy
+    const hasCompute = compute && Object.entries(compute).length
+    
+    if(hasCompute) updateCompute(proxy, compute) // executes compute functions and stores the result on the proxy
     updateInputValue(proxy) // Update <input :value="...">
     updateModelValue(proxy) // Update <input :r-model="...">
     updateTemplate(proxy) // Updates template properties {{myValue}}
