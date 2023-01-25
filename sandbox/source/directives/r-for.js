@@ -11,7 +11,6 @@ const getTemplate = (value, el) => {
   const uid = el.attributes["r-for-key"].value
 
   const template = rForMap.get(uid);
-  if (!template) return console.warn(`v-for couldn't find any template for "${property}"`)
   template.querySelector(DATA_BINDING_SELECTOR).innerHTML = value
 
   return template.outerHTML
