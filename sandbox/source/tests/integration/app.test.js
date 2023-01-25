@@ -437,8 +437,7 @@ describe("Integration test", () => {
                 {{ name }}
               </div>
 
-              <!-- WIP: Remove x in xr-for...-->
-              <div xr-for="surname of surnames" id="loop-3">
+              <div r-for="surname of surnames" id="loop-3">
                 {{ surname }}
               </div>
             </div>
@@ -453,21 +452,27 @@ describe("Integration test", () => {
           // ToDo: Error in code: For some reason proxyMap does not include "surname" in r-for.js:27
           proxy.surnames = ["Growl", "Drake", "Cobain"]
 
+          // Test that the each r-for-key is unique
+          expect(loop1El.attributes["r-for-key"].value).not.toBe(loop2El.attributes["r-for-key"].value)
+
           // Loop 1 names
           expect(loop1El.innerHTML).toMatch(/Lisa/);
           expect(loop1El.innerHTML).toMatch(/Frank/);
           expect(loop1El.innerHTML).toMatch(/Steve/);
+          expect(loop1El.attributes["r-for-key"].value).not.toBe("")
           
           // Loop 2 names (testing duplicated loop)
           expect(loop2El.innerHTML).toMatch(/Lisa/);
           expect(loop2El.innerHTML).toMatch(/Frank/);
           expect(loop2El.innerHTML).toMatch(/Steve/);
+          expect(loop2El.attributes["r-for-key"].value).not.toBe("")
+
           
           // Loop 3 surnames
-          // ToDo: Fix and reimplement: Error in code: For some reason proxyMap does not include "surname" in r-for.js:27
-          // expect(loop3El.innerHTML).toMatch(/Drake/);
-          // expect(loop3El.innerHTML).toMatch(/Growl/);
-          // expect(loop3El.innerHTML).toMatch(/Cobain/);
+          expect(loop3El.innerHTML).toMatch(/Drake/);
+          expect(loop3El.innerHTML).toMatch(/Growl/);
+          expect(loop3El.innerHTML).toMatch(/Cobain/);
+          expect(loop3El.attributes["r-for-key"].value).not.toBe("")
         });
         
         it('logs an error if invalid proxy binding', () => {

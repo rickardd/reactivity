@@ -1,13 +1,19 @@
-import { getElements } from "../utils/utils.js";
+import { getElements, createUid } from "../utils/utils.js";
 import { DATA_BINDING_SELECTOR } from "../template/template-engine.js";
 
 const FOR_SELECTOR = '[r-for]'
 const FOR_ATTRIBUTE = 'r-for'
 
-function getTemplate(value) {
-  const clonedNode = window.itemTemplate.cloneNode(true)
-  clonedNode.querySelector(DATA_BINDING_SELECTOR).innerHTML = value
-  return clonedNode.outerHTML
+const rForMap = new Map()
+
+function getTemplate(value, el) {
+  const uid = el.attributes["r-for-key"].value
+
+  const template = rForMap.get(uid);
+  if (!template) return console.warn(`v-for couldn't find any template for "${property}"`)
+  template.querySelector(DATA_BINDING_SELECTOR).innerHTML = value
+
+  return template.outerHTML
 }
 
 const update = (proxyMap) => {
@@ -15,27 +21,31 @@ const update = (proxyMap) => {
     const property = el.attributes[FOR_ATTRIBUTE].value.replace('proxy.', '') // Handles both r-for="name in proxy.names" and r-for="name in names"
     const [varName, operator, targetProperty] = property.split(' ')
     const target = proxyMap.get(targetProperty)
-    let mainTemplate = ''
 
     // Store the innerHTML of r-for as a template
-    window.itemTemplate = window.itemTemplate || el.cloneNode(true) // This will not work with multiple r-for. Consider store in an instance!?
+    if (!el.attributes["r-for-key"]) {
+      const uid = createUid();
+      el.setAttribute("r-for-key", uid )
+
+      rForMap.set(uid, el.cloneNode(true));
+    }
 
     // Clear content within r-for
     el.innerHTML = ''
     
     // Early return if error
     if (!target) return console.warn(`v-for couldn't find binding to proxy.${targetProperty}`)
-    if (!window.itemTemplate) return console.warn(`v-for couldn't find any template for "${property}"`)
+    
+    let template = ''
     
     if (operator.toLowerCase() == 'of') {
       for (const value of target) {
-        // Append template the mainTemplate
-        mainTemplate += getTemplate(value)
+        template += getTemplate(value, el)
       }
     }
 
-    // Replace the r-for innerHTML with mainTemplate
-    el.innerHTML = mainTemplate
+    // Replace the r-for innerHTML with template
+    el.innerHTML = template
   })
 }
 
