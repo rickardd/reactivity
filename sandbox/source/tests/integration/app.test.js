@@ -392,7 +392,9 @@ describe("Integration test", () => {
           const viewString = `
             <div id="app">
               <div r-for="name of names">
-                {{ name }}
+                <article class="card">
+                  <span class="text-red">{{ name }}<span>
+                </article>
               </div>
             </div>
           `
@@ -409,7 +411,7 @@ describe("Integration test", () => {
           const viewString = `
             <div id="app">
               <div r-for="name of names">
-                {{ unknown }}
+                <span>{{ unknown }}</span>
               </div>
             </div>
           `
@@ -421,24 +423,24 @@ describe("Integration test", () => {
           // In this examples no names should NOT be printed and
           // a console.warn(`v-for couldn't find binding to proxy..`) should be raised.
 
-          // expect(appEl.innerHTML).not.toMatch(/Lisa/);
-          // expect(appEl.innerHTML).not.toMatch(/Frank/);
-          // expect(appEl.innerHTML).not.toMatch(/Steve/);
+          expect(appEl.innerHTML).not.toMatch(/Lisa/);
+          expect(appEl.innerHTML).not.toMatch(/Frank/);
+          expect(appEl.innerHTML).not.toMatch(/Steve/);
         });
 
         it('works with multiple r-for loops', () => {
           const viewString = `
             <div id="app">
               <div r-for="name of names" id="loop-1">
-                {{ name }}
+                <span>{{ name }}</span>
               </div>
               
               <div r-for="name of names" id="loop-2">
-                {{ name }}
+                <span>{{ name }}</span>
               </div>
 
               <div r-for="surname of surnames" id="loop-3">
-                {{ surname }}
+                <span>{{ surname }}</span>
               </div>
             </div>
           `

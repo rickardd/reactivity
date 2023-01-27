@@ -26,4 +26,4 @@ function update(proxyMap) {
   })
 }
 
-export { DATA_BINDING_SELECTOR, update, prepare }
+export { DATA_BINDING_SELECTOR, DATA_BINDING_STRING, update, prepare }
