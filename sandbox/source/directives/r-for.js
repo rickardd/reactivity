@@ -22,7 +22,7 @@ const getParsedTemplate = (varName, operator, target, forEl) => {
 
   if (operator.toLowerCase() == 'of') {
     for (const value of target) {
-      // ToDo: Maybe this should live in the Template enginge js file, Keep it DRY
+      // ToDo: Maybe this should live in the Template engine js file, Keep it DRY
       if (value) {
         // template.firstChild does not work with jest so we use template.children[0] instead
         let clonedInnerTemplate = template.children[0].cloneNode(true)
