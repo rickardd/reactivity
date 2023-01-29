@@ -388,7 +388,7 @@ describe("Integration test", () => {
       })
 
       describe('r-for', () => {
-        it('lists names with a loop', () => {
+        it('lists html-cards with name for each name in the list', () => {
           const viewString = `
             <div id="app">
               <div r-for="name of names">
@@ -405,6 +405,44 @@ describe("Integration test", () => {
           expect(appEl.innerHTML).toMatch(/Lisa/);
           expect(appEl.innerHTML).toMatch(/Frank/);
           expect(appEl.innerHTML).toMatch(/Steve/);
+        });
+        
+        it('does not require any wrapping markup around template bindings', () => {
+          console.warn = jest.fn()
+          const viewString = `
+            <div id="app">
+              <div r-for="name of names">
+                {{ name }}
+              </div>
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          proxy.names = ["Lisa", "Frank", "Steve"]
+
+          expect(appEl.innerHTML).not.toMatch(/Lisa/);
+          expect(appEl.innerHTML).not.toMatch(/Frank/);
+          expect(appEl.innerHTML).not.toMatch(/Steve/);
+          
+          expect(console.warn).toHaveBeenCalledWith("The r-for must contain one and only one child element");
+        });
+        
+        it('doesn\'t break if r-for has no template bindings', () => {
+
+          const viewString = `
+            <div id="app">
+              <div r-for="name of names">
+                <div>..._</div>
+              </div>
+            </div>
+          `
+          setupView(viewString, 'app')
+          
+          proxy.names = ["Lisa", "Frank", "Steve"]
+
+          expect(appEl.innerHTML).toMatch("..._");
+          // Expected to run the loop 3 times as proxy.names.length === 3
+          expect(appEl.textContent).toMatch("..._..._..._");
         });
         
         it('does not list names if binding is wrong', () => {

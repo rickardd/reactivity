@@ -14,11 +14,17 @@ const getParsedTemplate = (varName, operator, target, forEl) => {
   const template = rForMap.get(key)
   let parsedTemplate = '' 
 
+  const hasOneInnerTemplateWrapper = template.children.length === 1 && !template.children[0].dataset.elementBinding
+  if (!hasOneInnerTemplateWrapper) {
+    console.warn("The r-for must contain one and only one child element")
+    return
+  }
+
   if (operator.toLowerCase() == 'of') {
     for (const value of target) {
-      // Maybe this should live in the Template enginge js file, Keep it DRY
+      // ToDo: Maybe this should live in the Template enginge js file, Keep it DRY
       if (value) {
-        // template.firstChild does not work with jest
+        // template.firstChild does not work with jest so we use template.children[0] instead
         let clonedInnerTemplate = template.children[0].cloneNode(true)
 
         // <span data-binding...>
