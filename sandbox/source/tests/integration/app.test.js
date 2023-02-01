@@ -12,10 +12,10 @@ describe("Integration test", () => {
       // As this running before each test this id has to be unique.
       const componentString = `<div id="main-app"></div>`
 
-      const view = setupComponent(componentString, 'main-app', true)
-      appEl = view.appEl
-      proxy = view.proxy
-      compute = view.compute
+      const component = setupComponent(componentString, 'main-app', true)
+      appEl = component.appEl
+      proxy = component.proxy
+      compute = component.compute
     })
 
     describe('proxy properties can be updated', () => {
@@ -559,10 +559,10 @@ describe("Integration test", () => {
             <div id="sum">{{sum}}</div>
           </div>
           `
-        const view = setupComponent(componentString, 'app')
-        appEl = view.appEl
-        proxy = view.proxy
-        compute = view.compute
+        const component = setupComponent(componentString, 'app')
+        appEl = component.appEl
+        proxy = component.proxy
+        compute = component.compute
       })
       
 
