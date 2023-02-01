@@ -1,8 +1,13 @@
 import { Raccoon } from "../../index.js"
 // Set up a view for test witch only requires 1 view.
 // Tests can access the global defined variables proxy and compute for this view.
-export const setupView = jest.fn((viewString, appId) => {
-  document.body.innerHTML = viewString;
+export const setupView = jest.fn((viewString, appId, isSingleComponent = false) => {
+  if (isSingleComponent) {
+    document.body.innerHTML = viewString;
+  }
+  else {
+    document.body.insertAdjacentHTML("beforeend", viewString)
+  }
 
   const appEl = document.getElementById(appId);
   const raccoon = new Raccoon(appEl);
