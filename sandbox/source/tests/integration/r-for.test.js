@@ -52,9 +52,7 @@ describe("r-for", () => {
       expect(appEl.innerHTML).not.toMatch(/Frank/);
       expect(appEl.innerHTML).not.toMatch(/Steve/);
 
-      expect(console.warn).toHaveBeenCalledWith(
-        "The r-for must contain one and only one child element"
-      );
+      expect(console.warn).toHaveBeenCalledWith("The r-for must contain one and only one child element");
     });
 
     it("doesn't break if r-for has no template bindings", () => {
@@ -117,9 +115,7 @@ describe("r-for", () => {
       proxy.surnames = ["Growl", "Drake", "Cobain"];
 
       // Test that the each r-for-key is unique
-      expect(loop1El.attributes["r-for-key"].value).not.toBe(
-        loop2El.attributes["r-for-key"].value
-      );
+      expect(loop1El.attributes["r-for-key"].value).not.toBe(loop2El.attributes["r-for-key"].value);
 
       // Loop 1 names
       expect(loop1El.innerHTML).toMatch(/Lisa/);
@@ -154,9 +150,7 @@ describe("r-for", () => {
 
       proxy.names = ["Lisa", "Frank", "Steve"];
 
-      expect(console.warn).toHaveBeenCalledWith(
-        "v-for couldn't find binding to proxy.unknown"
-      );
+      expect(console.warn).toHaveBeenCalledWith("v-for couldn't find binding to proxy.unknown");
     });
   });
 });

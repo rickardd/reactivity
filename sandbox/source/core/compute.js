@@ -2,9 +2,9 @@
 // e.g compute.sum = () => proxy.a + proxy.b
 // can then be accessed by {{proxy.sum}}
 const updateCompute = (proxy, compute) => {
-    Object.entries(compute).forEach( ([key, fn]) => {
-        proxy.set(key, fn()) 
-    })
-}
+  Object.entries(compute).forEach(([key, fn]) => {
+    proxy.set(key, fn());
+  });
+};
 
-export { updateCompute }
+export { updateCompute };

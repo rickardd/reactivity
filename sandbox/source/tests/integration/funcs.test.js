@@ -3,10 +3,7 @@ import { setupComponent } from "./setup.js";
 describe("func methods", () => {
   it("can run functions interactively", () => {
     const componentString1 = `<div id="component-1"><button id="button" @click='funcs.myFn(proxy.a)'>Count Up</button></div>`;
-    const { appEl, proxy, funcs } = setupComponent(
-      componentString1,
-      "component-1"
-    );
+    const { appEl, proxy, funcs } = setupComponent(componentString1, "component-1");
 
     proxy.a = 1;
     // The first argument will always be the proxy which is applied by the framework.
