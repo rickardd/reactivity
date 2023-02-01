@@ -34,7 +34,6 @@ describe("Integration test", () => {
       setupView(viewString, 'app')
     })
 
-    // Might be redundant due to later tests
     describe('proxy properties can be updated', () => {
       it('sets a proxy property', () => {
         proxy.a = 1;
@@ -55,7 +54,6 @@ describe("Integration test", () => {
       // delete property with delete
     })
     
-    // Might be redundant due to later tests
     describe('compute methods', () => {
       it('calculates the sum of proxy.a and proxy.b', () => {
         compute.sum = () => proxy.a + proxy.b
@@ -67,7 +65,6 @@ describe("Integration test", () => {
       });
     })
     
-    // Might be redundant due to later tests
     describe('compute methods updates when property value changes', () => {
       it('calculates the sum of proxy.a and proxy.b', () => {
         compute.sum = () => proxy.a + proxy.b
@@ -85,7 +82,6 @@ describe("Integration test", () => {
     })
 
     describe('DOM events', () => {
-      // Might be redundant due to later tests
       describe('@click', () => {
         it('execute method expression', () => {
 
@@ -457,10 +453,6 @@ describe("Integration test", () => {
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
-          // This test is correct, the functionality is wrong. 
-          // In this examples no names should NOT be printed and
-          // a console.warn(`v-for couldn't find binding to proxy..`) should be raised.
-
           expect(appEl.innerHTML).not.toMatch(/Lisa/);
           expect(appEl.innerHTML).not.toMatch(/Frank/);
           expect(appEl.innerHTML).not.toMatch(/Steve/);
@@ -489,7 +481,6 @@ describe("Integration test", () => {
           const loop3El = appEl.querySelector("#loop-3")
           
           proxy.names = ["Lisa", "Frank", "Steve"]
-          // ToDo: Error in code: For some reason proxyMap does not include "surname" in r-for.js:27
           proxy.surnames = ["Growl", "Drake", "Cobain"]
 
           // Test that the each r-for-key is unique
@@ -506,7 +497,6 @@ describe("Integration test", () => {
           expect(loop2El.innerHTML).toMatch(/Frank/);
           expect(loop2El.innerHTML).toMatch(/Steve/);
           expect(loop2El.attributes["r-for-key"].value).not.toBe("")
-
           
           // Loop 3 surnames
           expect(loop3El.innerHTML).toMatch(/Drake/);
