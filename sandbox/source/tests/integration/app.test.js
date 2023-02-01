@@ -10,9 +10,9 @@ describe("Integration test", () => {
 
     beforeEach(() => {
       // As this running before each test this id has to be unique.
-      const viewString = `<div id="main-app"></div>`
+      const componentString = `<div id="main-app"></div>`
 
-      const view = setupComponent(viewString, 'main-app', true)
+      const view = setupComponent(componentString, 'main-app', true)
       appEl = view.appEl
       proxy = view.proxy
       compute = view.compute
@@ -69,12 +69,12 @@ describe("Integration test", () => {
       describe('@click', () => {
         it('execute method expression', () => {
 
-          const viewString = `
+          const componentString = `
             <div id="app">
               <button id="button" @click='proxy.a += 10'>Count Up</button>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           proxy.a = 1;
 
@@ -87,13 +87,13 @@ describe("Integration test", () => {
       
       describe('@input - reacts on change and key-up events', () => {
         it('updates the proxy when input value changes and vice versa', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <label for="price">Price</label>
               <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -132,13 +132,13 @@ describe("Integration test", () => {
 
       describe('@change - reacts on change event only', () => {
         it('updates the proxy when input value changes and vice versa', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <label for="price">Price</label>
               <input type="number" @change="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -171,13 +171,13 @@ describe("Integration test", () => {
       
       describe('@keyup - reacts on key up event only', () => {
         it('updates the proxy when input value changes and vice versa', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <label for="price">Price</label>
               <input type="number" @keyup="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -211,13 +211,13 @@ describe("Integration test", () => {
       
       describe('@keydown - reacts on key up event only', () => {
         it('updates the proxy when input value changes and vice versa', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <label for="price">Price</label>
               <input type="number" @keydown="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -251,12 +251,12 @@ describe("Integration test", () => {
       
       describe('r-model - reacts on key up event only', () => {
         it('updates the proxy when input value changes and vice versa', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <input id="inputEl" type="number" r-model="price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("#inputEl")
 
@@ -294,12 +294,12 @@ describe("Integration test", () => {
         });
 
         it('works with prefixed proxy e.g r-model="proxy.price"', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <input id="inputEl" type="number" r-model="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("#inputEl")
 
@@ -336,13 +336,13 @@ describe("Integration test", () => {
         });
         
         it('treats numbers as numbers and strings as strings (r-model)', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <input id="inputNumber" type="number" r-model="proxy.myNumber">
               <input id="inputString" type="text" r-model="proxy.myString">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           const inputNumber = appEl.querySelector("#inputNumber")
           const inputString = appEl.querySelector("#inputString")
@@ -369,7 +369,7 @@ describe("Integration test", () => {
 
       describe('r-for', () => {
         it('lists html-cards with name for each name in the list', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <div r-for="name of names">
                 <article class="card">
@@ -378,7 +378,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -389,14 +389,14 @@ describe("Integration test", () => {
         
         it('does not require any wrapping markup around template bindings', () => {
           console.warn = jest.fn()
-          const viewString = `
+          const componentString = `
             <div id="app">
               <div r-for="name of names">
                 {{ name }}
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -409,14 +409,14 @@ describe("Integration test", () => {
         
         it('doesn\'t break if r-for has no template bindings', () => {
 
-          const viewString = `
+          const componentString = `
             <div id="app">
               <div r-for="name of names">
                 <div>..._</div>
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -426,14 +426,14 @@ describe("Integration test", () => {
         });
         
         it('does not list names if binding is wrong', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <div r-for="name of names">
                 <span>{{ unknown }}</span>
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -443,7 +443,7 @@ describe("Integration test", () => {
         });
 
         it('works with multiple r-for loops', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <div r-for="name of names" id="loop-1">
                 <span>{{ name }}</span>
@@ -458,7 +458,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
 
           const loop1El = appEl.querySelector("#loop-1")
           const loop2El = appEl.querySelector("#loop-2")
@@ -492,14 +492,14 @@ describe("Integration test", () => {
         it('logs an error if invalid proxy binding', () => {
           console.warn = jest.fn();
 
-          const viewString = `
+          const componentString = `
             <div id="app">
               <div r-for="name of unknown">
                 {{ unknown.name }}
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
 
           proxy.names = ["Lisa", "Frank", "Steve"]
                     
@@ -511,13 +511,13 @@ describe("Integration test", () => {
 
       describe(':value - reacts to no input events', () => {
         it('updates only when the proxy value has changed', () => {
-          const viewString = `
+          const componentString = `
             <div id="app">
               <label for="price">Price</label>
               <input type="number" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
+          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
           const inputEl = appEl.querySelector("input")
 
           proxy.price = 1
@@ -550,7 +550,7 @@ describe("Integration test", () => {
       let compute = null
 
       beforeEach(() => {
-        const viewString = `
+        const componentString = `
           <div id="app">
             <button id="buttonA" @click='proxy.a += 1'>Count Up</button>
             <button id="buttonB" @click='proxy.b += 2'>Count Up</button>
@@ -559,7 +559,7 @@ describe("Integration test", () => {
             <div id="sum">{{sum}}</div>
           </div>
           `
-        const view = setupComponent(viewString, 'app')
+        const view = setupComponent(componentString, 'app')
         appEl = view.appEl
         proxy = view.proxy
         compute = view.compute
