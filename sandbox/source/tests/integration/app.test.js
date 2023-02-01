@@ -1,37 +1,20 @@
-import { Raccoon } from "../../index.js"
-
-let appEl = null
-let proxy = null
-let compute = null
-  
-// Set up a view for test witch only requires 1 view.
-// Tests can access the global defined variables proxy and compute for this view.
-const setupView = jest.fn( (viewString, appId) => {
-  document.body.innerHTML = viewString
-    
-  appEl = document.getElementById(appId)
-  const raccoon = new Raccoon(appEl)
-  proxy = raccoon.proxy 
-  compute = raccoon.compute 
-})
-
-// Similar to above but this returns appEl, proxy, compute rather than setting global variables.
-// Good for tests that requires multiple components
-const setupComponent = jest.fn( (componentString, appId) => {
-  document.body.insertAdjacentHTML("beforeend", componentString)
-    
-  appEl = document.getElementById(appId)
-  const raccoon = new Raccoon(appEl)
-  return {appEl, ...raccoon}
-})
+import { setupView, setupComponent } from "./setup.js";  
 
 describe("Integration test", () => {
 
   describe("Reactivity", () => {
 
+    let appEl = null
+    let proxy = null
+    let compute = null
+
     beforeEach(() => {
       const viewString = `<div id="app"></div>`
-      setupView(viewString, 'app')
+
+      const view = setupView(viewString, 'app')
+      appEl = view.appEl
+      proxy = view.proxy
+      compute = view.compute
     })
 
     describe('proxy properties can be updated', () => {
@@ -90,7 +73,7 @@ describe("Integration test", () => {
               <button id="button" @click='proxy.a += 10'>Count Up</button>
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           proxy.a = 1;
 
@@ -109,7 +92,7 @@ describe("Integration test", () => {
               <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -154,7 +137,7 @@ describe("Integration test", () => {
               <input type="number" @change="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -193,7 +176,7 @@ describe("Integration test", () => {
               <input type="number" @keyup="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -233,7 +216,7 @@ describe("Integration test", () => {
               <input type="number" @keydown="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -272,7 +255,7 @@ describe("Integration test", () => {
               <input id="inputEl" type="number" r-model="price">
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           const inputEl = appEl.querySelector("#inputEl")
 
@@ -315,7 +298,7 @@ describe("Integration test", () => {
               <input id="inputEl" type="number" r-model="proxy.price">
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           const inputEl = appEl.querySelector("#inputEl")
 
@@ -358,7 +341,7 @@ describe("Integration test", () => {
               <input id="inputString" type="text" r-model="proxy.myString">
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           const inputNumber = appEl.querySelector("#inputNumber")
           const inputString = appEl.querySelector("#inputString")
@@ -394,7 +377,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -412,7 +395,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -432,7 +415,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -449,7 +432,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -474,7 +457,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
 
           const loop1El = appEl.querySelector("#loop-1")
           const loop2El = appEl.querySelector("#loop-2")
@@ -515,7 +498,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
 
           proxy.names = ["Lisa", "Frank", "Steve"]
                     
@@ -533,7 +516,7 @@ describe("Integration test", () => {
               <input type="number" :value="proxy.price">
             </div>
           `
-          setupView(viewString, 'app')
+          const { appEl, proxy, compute } = setupView(viewString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -562,6 +545,10 @@ describe("Integration test", () => {
     })
 
     describe('Template engine', () => {
+      let appEl = null
+      let proxy = null
+      let compute = null
+
       beforeEach(() => {
         const viewString = `
           <div id="view">
@@ -571,9 +558,13 @@ describe("Integration test", () => {
             <div id="valueB">{{b}}</div>
             <div id="sum">{{sum}}</div>
           </div>
-        `
-        setupView(viewString, 'view')
+          `
+        const view = setupView(viewString, 'view')
+        appEl = view.appEl
+        proxy = view.proxy
+        compute = view.compute
       })
+      
 
       // Clicking a button, then test both compute and proxy changes are reflected in the HTML output
       it('updates the template {{...}} interactively', async () => {
