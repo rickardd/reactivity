@@ -74,7 +74,7 @@ describe("Integration test", () => {
               <button id="button" @click='proxy.a += 10'>Count Up</button>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           proxy.a = 1;
 
@@ -93,7 +93,7 @@ describe("Integration test", () => {
               <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -138,7 +138,7 @@ describe("Integration test", () => {
               <input type="number" @change="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -177,7 +177,7 @@ describe("Integration test", () => {
               <input type="number" @keyup="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -217,7 +217,7 @@ describe("Integration test", () => {
               <input type="number" @keydown="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -256,7 +256,7 @@ describe("Integration test", () => {
               <input id="inputEl" type="number" r-model="price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           const inputEl = appEl.querySelector("#inputEl")
 
@@ -299,7 +299,7 @@ describe("Integration test", () => {
               <input id="inputEl" type="number" r-model="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           const inputEl = appEl.querySelector("#inputEl")
 
@@ -342,7 +342,7 @@ describe("Integration test", () => {
               <input id="inputString" type="text" r-model="proxy.myString">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           const inputNumber = appEl.querySelector("#inputNumber")
           const inputString = appEl.querySelector("#inputString")
@@ -378,7 +378,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -396,7 +396,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -416,7 +416,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -433,7 +433,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -458,7 +458,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
 
           const loop1El = appEl.querySelector("#loop-1")
           const loop2El = appEl.querySelector("#loop-2")
@@ -499,7 +499,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(viewString, 'app', true)
+          const { appEl, proxy, compute } = setupComponent(viewString, 'app')
 
           proxy.names = ["Lisa", "Frank", "Steve"]
                     
@@ -559,7 +559,7 @@ describe("Integration test", () => {
             <div id="sum">{{sum}}</div>
           </div>
           `
-        const view = setupComponent(viewString, 'app', true)
+        const view = setupComponent(viewString, 'app')
         appEl = view.appEl
         proxy = view.proxy
         compute = view.compute
