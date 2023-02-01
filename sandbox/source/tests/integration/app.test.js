@@ -74,7 +74,7 @@ describe("Integration test", () => {
               <button id="button" @click='proxy.a += 10'>Count Up</button>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { proxy } = setupComponent(componentString, 'app')
           
           proxy.a = 1;
 
@@ -93,7 +93,7 @@ describe("Integration test", () => {
               <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -138,7 +138,7 @@ describe("Integration test", () => {
               <input type="number" @change="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -177,7 +177,7 @@ describe("Integration test", () => {
               <input type="number" @keyup="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -217,7 +217,7 @@ describe("Integration test", () => {
               <input type="number" @keydown="proxy.price = Number(event.target.value)" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("input")
 
@@ -256,7 +256,7 @@ describe("Integration test", () => {
               <input id="inputEl" type="number" r-model="price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("#inputEl")
 
@@ -299,7 +299,7 @@ describe("Integration test", () => {
               <input id="inputEl" type="number" r-model="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           const inputEl = appEl.querySelector("#inputEl")
 
@@ -342,7 +342,7 @@ describe("Integration test", () => {
               <input id="inputString" type="text" r-model="proxy.myString">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           const inputNumber = appEl.querySelector("#inputNumber")
           const inputString = appEl.querySelector("#inputString")
@@ -378,7 +378,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -396,7 +396,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -416,7 +416,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -433,7 +433,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           
           proxy.names = ["Lisa", "Frank", "Steve"]
 
@@ -458,7 +458,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
 
           const loop1El = appEl.querySelector("#loop-1")
           const loop2El = appEl.querySelector("#loop-2")
@@ -499,7 +499,7 @@ describe("Integration test", () => {
               </div>
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { proxy } = setupComponent(componentString, 'app')
 
           proxy.names = ["Lisa", "Frank", "Steve"]
                     
@@ -517,7 +517,7 @@ describe("Integration test", () => {
               <input type="number" :value="proxy.price">
             </div>
           `
-          const { appEl, proxy, compute } = setupComponent(componentString, 'app')
+          const { appEl, proxy } = setupComponent(componentString, 'app')
           const inputEl = appEl.querySelector("input")
 
           proxy.price = 1
@@ -590,7 +590,7 @@ describe("Integration test", () => {
     describe('funcs methods', () => {
       it('can run functions interactively', () => {
         const componentString1 = `<div id="component-1"><button id="button" @click='funcs.myFn(proxy.a)'>Count Up</button></div>`
-        const {appEl, proxy, compute, funcs} = setupComponent(componentString1, 'component-1')
+        const {appEl, proxy, funcs} = setupComponent(componentString1, 'component-1')
         
         proxy.a = 1;
         // The first argument will always be the proxy which is applied by the framework.
