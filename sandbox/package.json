@@ -4,20 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "http-server .",
-    "test": "jest --verbose",
-    "test:watch": "jest --watch --verbose",
-    "test:pattern": "jest --verbose -t",
-    "test:watch:pattern": "jest --watch --verbose -t"
+    "start": "http-server ."
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/preset-env": "^7.19.4",
-    "@types/jest": "^29.1.2",
-    "babel-jest": "^29.1.2",
-    "http-server": "^14.1.1",
-    "jest": "^29.3.1",
-    "jest-environment-jsdom": "^29.1.2"
+  "dependencies": {
+    "http-server": "^14.1.1"
   }
 }

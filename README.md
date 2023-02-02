@@ -14,6 +14,19 @@ ToDo
 ## NVM version
 $ nvm use
 
+## Sandbox
+
+To setup the sandbox project we need to link the local project with the sandbox project. 
+Start in the project root folder, then.
+
+```bash
+npm link
+cd sandbox
+npm link racoon
+npm start
+# Only the localhost http://127.0.0.1:8080 works with the linking.
+```
+
 ## Test
 $ npm run test
 

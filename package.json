@@ -1,0 +1,21 @@
+{
+  "name": "raccoon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "source/index.js",
+  "scripts": {
+    "test": "jest --verbose",
+    "test:watch": "jest --watch --verbose",
+    "test:pattern": "jest --verbose -t",
+    "test:watch:pattern": "jest --watch --verbose -t"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.19.4",
+    "@types/jest": "^29.1.2",
+    "babel-jest": "^29.1.2",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.1.2"
+  }
+}

@@ -1,4 +1,4 @@
-import { Raccoon } from "./source/index.js";
+import { Raccoon } from "raccoon";
 
 const appEl = document.getElementById("app");
 
