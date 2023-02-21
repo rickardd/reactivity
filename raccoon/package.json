@@ -2,7 +2,8 @@
   "name": "raccoon",
   "version": "1.0.0",
   "description": "",
-  "main": "source/index.js",
+  "main": "./source/index.js",
+  "type": "module",
   "scripts": {
     "test": "jest --verbose",
     "test:watch": "jest --watch --verbose",
