@@ -72,9 +72,9 @@
     <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
     <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
     <br>
-    <div r-for="name of names">
-      {{ names.name }}
-    </div>
+    <ul r-for="name of names">
+      <li>{{ name }}</li>
+    </ul>
   </div>
 
 </body>
