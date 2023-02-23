@@ -1,0 +1,66 @@
+:root {
+  --grid-gap: 8px;
+  --content-padding: 24px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1 {
+  font-size: 1.3rem;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1rem;
+  margin-top: 0;
+}
+
+.grid {
+  width: 100%;
+  max-width: 960px;
+  margin: 24px auto;
+  background-color: grey;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);;
+  grid-template-rows: 80px auto; 
+  grid-gap: 8px;
+  grid-template-areas: 
+    "sidebar  sidebar  sidebar  sidebar  header  header  header  header  header  header  header  header"
+    "sidebar  sidebar  sidebar  sidebar  main    main    main    main    main    main    main    main"
+    "footer   footer   footer   footer  footer  footer  footer  footer  footer  footer  footer  footer";
+}
+
+.item-header {
+  grid-area: header;
+  background-color: red;
+  padding: var(--content-padding);
+}
+.item-sidebar {
+  grid-area: sidebar;
+  background-color: green;
+  padding: var(--content-padding);
+}
+.item-main {
+  grid-area: main;
+  padding: var(--content-padding);
+}
+.item-footer {
+  grid-area: footer;
+  background-color: purple;
+  padding: var(--content-padding);
+}
+
+.item-sidebar aside {
+  position: sticky;
+  top: var(--content-padding);;
+}
+
+.example {
+  border: 1px solid gray;
+  padding: var(--content-padding);
+  margin-bottom: 12px;
+  background-color: #fff;
+}

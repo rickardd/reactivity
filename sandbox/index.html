@@ -1,106 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sandbox</title>
-  <script src="./app.js" type="module"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css"/>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sandbox</title>
+    <script src="./app.js" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <div class="grid">
+      <div class="item-header">
+        <h1>Raccoon JS</h1>
+      </div>
+      <div class="item-sidebar">
+        <aside>
+          <menu>
+            <li><a href="#intro">Intro</a></li>
+            <li><a href="#setup">Setup</a></li>
+            <li><a href="#get-started">Get started</a></li>
+            <li><a href="#proxy">Proxy</a></li>
+            <li><a href="#compute">Compute</a></li>
+            <li><a href="#funcs">Funcs</a></li>
+            <li><a href="#click">@click</a></li>
+            <li><a href="#input">@input</a></li>
+            <li><a href="#change">@change</a></li>
+            <li><a href="#keyup">@keyup</a></li>
+            <li><a href="#keydown">@keydown</a></li>
+            <li><a href="#r-for">r-for</a></li>
+            <li><a href="#r-model">r-model</a></li>
+            <li><a href="#states/state-manager">States/state-manager</a></li>
+            <li><a href="#multiple-components">Multiple components</a></li>
+          </menu>
+        </aside>
+      </div>
+      <div class="item-main">
+        <div id="app">
+          <article class="example" id="intro">
+            <h2>Intro</h2>
+          </article>
 
-  <div id="app">
+          <article class="example" id="setup">
+            <h2>Setup</h2>
+          </article>
+
+          <article class="example" id="get-started">
+            <h2>Get started</h2>
+          </article>
+
+          <article class="example" id="proxy">
+            <h2>Proxy</h2>
+          </article>
+
+          <article class="example" id="compute">
+            <h2>Compute</h2>
+          </article>
+
+          <article class="example" id="funcs">
+            <h2>Funcs</h2>
+          </article>
+
+          <article class="example" id="click">
+            <h2>@click</h2>
+          </article>
+
+          <article class="example" id="input">
+            <h2>@input</h2>
+          </article>
+
+          <article class="example" id="change">
+            <h2>@change</h2>
+          </article>
+
+          <article class="example" id="keyup">
+            <h2>@keyup</h2>
+          </article>
+
+          <article class="example" id="keydown">
+            <h2>@keydown</h2>
+          </article>
+
+          <article class="example" id="r-for">
+            <h2>r-for</h2>
+          </article>
+
+          <article class="example" id="r-model">
+            <h2>r-model</h2>
+          </article>
+
+          <article class="example" id="states/state-manager">
+            <h2>states/state-manager</h2>
+          </article>
+
+          <article class="example" id="multiple-components">
+            <h2>multiple components</h2>
+          </article>
 
 
-    <button @click='funcs.getUsers()'>Get Users</button>
-    <br>
-    <button @click='funcs.getProducts()'>Get Products</button>
-    <br>
-    <br>
-    <br>
-    <button @click='proxy.price += 10'>Count Up</button>
-    <div>{{price}}</div>
-    <div>{{quantity}}</div>
-    <div>{{tax}}</div>
-    <div>{{sum}}</div>
-    <div>{{total}}</div>
-    <div>
-      <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
-      <!-- both :value="tax" and :value="proxy.tax" are valid -->
-      <label>
-        <span>Price: </span>  
-        <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
-      </label>
-    </div>
-    <div>
-      <label>
-        <span>Tax: @input</span>  
-        <input type="number" @input="proxy.tax = Number(event.target.value)" :value="tax">
-      </label>
-    </div>
-    <div>
-      <label>
-        <span>Tax: @change</span>  
-        <input type="number" @change="proxy.tax = Number(event.target.value)" :value="tax">
-      </label>
-    </div>
-    <div>
-      <label>
-        <span>Tax: @keyup</span>  
-        <input type="number" @keyup="proxy.tax = Number(event.target.value)" :value="tax">
-      </label>
-    </div>
-    <div>
-      <label>
-        <span>Tax: @keydown</span>  
-        <input type="number" @keydown="proxy.tax = Number(event.target.value)" :value="tax">
-      </label>
-    </div>
-    <div>
-      <label>
-        <span>Tax: r-model</span>  
-        <input type="number" r-model="tax">
-      </label>
-    </div>
-    
-    <!-- r-for -->
-    <br>
-    <strong>r-for</strong>
-    <br>
-    <button @click="proxy.names = [...proxy.names, 'Rick']">Add Rick</button>
-    <button @click="proxy.names = [...proxy.names, 'Carl']">Add Carl</button>
-    <button @click="proxy.names = [...proxy.names, 'Paula']">Add Paula</button>
-    <button @click="proxy.names = [...proxy.names, 'Foxy']">Add Foxy</button>
-    <br>
-    <!-- A handler for this is required -->
-    <button @click="delete proxy.names">Remove proxy.names</button> <!-- Triggers deleteProperty() -->
-    <!-- Most methods of deleting does not trigger the proxy set event -->
-    <!-- But splice works  -->
-    <!-- For delete to work properly we need a proxy for each value in the array. -->
-    <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
-    <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
-    <br>
-    <ul r-for="name of names">
-      <li>{{ name }}</li>
-    </ul>
-    
-    <ul r-for="user of users">
-      <!-- ToDo: The r-for does not handle objects e.g user.firstName. -->
-      <li>{{ user }}</li>
-    </ul>
-  </div>
 
 
-  <pre><code class="language-markup"><!--
-    <ul r-for="user of users">
-      <li>{{ user }}</li>
-    </ul>
-  --></code></pre>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/toolbar/prism-toolbar.min.js" ></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-</body>
+
+          <button @click="funcs.getUsers()">Get Users</button>
+          <br />
+          <button @click="funcs.getProducts()">Get Products</button>
+          <br />
+          <br />
+          <br />
+          <button @click="proxy.price += 10">Count Up</button>
+          <div>{{price}}</div>
+          <div>{{quantity}}</div>
+          <div>{{tax}}</div>
+          <div>{{sum}}</div>
+          <div>{{total}}</div>
+          <div>
+            <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
+            <!-- both :value="tax" and :value="proxy.tax" are valid -->
+            <label>
+              <span>Price: </span>
+              <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price" />
+            </label>
+          </div>
+          <div>
+            <label>
+              <span>Tax: @input</span>
+              <input type="number" @input="proxy.tax = Number(event.target.value)" :value="tax" />
+            </label>
+          </div>
+          <div>
+            <label>
+              <span>Tax: @change</span>
+              <input type="number" @change="proxy.tax = Number(event.target.value)" :value="tax" />
+            </label>
+          </div>
+          <div>
+            <label>
+              <span>Tax: @keyup</span>
+              <input type="number" @keyup="proxy.tax = Number(event.target.value)" :value="tax" />
+            </label>
+          </div>
+          <div>
+            <label>
+              <span>Tax: @keydown</span>
+              <input type="number" @keydown="proxy.tax = Number(event.target.value)" :value="tax" />
+            </label>
+          </div>
+          <div>
+            <label>
+              <span>Tax: r-model</span>
+              <input type="number" r-model="tax" />
+            </label>
+          </div>
+          <!-- r-for -->
+          <br />
+          <strong>r-for</strong>
+          <br />
+          <button @click="proxy.names = [...proxy.names, 'Rick']">Add Rick</button>
+          <button @click="proxy.names = [...proxy.names, 'Carl']">Add Carl</button>
+          <button @click="proxy.names = [...proxy.names, 'Paula']">Add Paula</button>
+          <button @click="proxy.names = [...proxy.names, 'Foxy']">Add Foxy</button>
+          <br />
+          <!-- A handler for this is required -->
+          <button @click="delete proxy.names">Remove proxy.names</button>
+          <!-- Triggers deleteProperty() -->
+          <!-- Most methods of deleting does not trigger the proxy set event -->
+          <!-- But splice works  -->
+          <!-- For delete to work properly we need a proxy for each value in the array. -->
+          <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
+          <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
+          <br />
+          <ul r-for="name of names">
+            <li>{{ name }}</li>
+          </ul>
+          <ul r-for="user of users">
+            <!-- ToDo: The r-for does not handle objects e.g user.firstName. -->
+            <li>{{ user }}</li>
+          </ul>
+          <pre><code class="language-markup"><!--<ul r-for="user of users">
+  <li>{{ user }}</li>
+</ul>--></code></pre>
+        </div>
+      </div>
+      <div class="item-footer">d</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/toolbar/prism-toolbar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  </body>
 </html>
