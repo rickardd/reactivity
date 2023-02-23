@@ -10,6 +10,14 @@
 <body>
 
   <div id="app">
+
+
+    <button @click='funcs.getUsers()'>Get Users</button>
+    <br>
+    <button @click='funcs.getProducts()'>Get Products</button>
+    <br>
+    <br>
+    <br>
     <button @click='proxy.price += 10'>Count Up</button>
     <div>{{price}}</div>
     <div>{{quantity}}</div>
@@ -74,6 +82,11 @@
     <br>
     <ul r-for="name of names">
       <li>{{ name }}</li>
+    </ul>
+    
+    <ul r-for="user of users">
+      <!-- ToDo: The r-for does not handle objects e.g user.firstName. -->
+      <li>{{ user }}</li>
     </ul>
   </div>
 
