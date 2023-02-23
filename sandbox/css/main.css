@@ -21,45 +21,46 @@ h2 {
   width: 100%;
   max-width: 960px;
   margin: 24px auto;
-  background-color: grey;
+  background-color: #ccc;
 
   display: grid;
   grid-template-columns: repeat(12, 1fr);;
   grid-template-rows: 80px auto; 
   grid-gap: 8px;
   grid-template-areas: 
-    "sidebar  sidebar  sidebar  sidebar  header  header  header  header  header  header  header  header"
+    "header  header  header  header  header  header  header  header  header  header  header  header"
     "sidebar  sidebar  sidebar  sidebar  main    main    main    main    main    main    main    main"
     "footer   footer   footer   footer  footer  footer  footer  footer  footer  footer  footer  footer";
 }
 
 .item-header {
   grid-area: header;
-  background-color: red;
+  background-color: #eee;
   padding: var(--content-padding);
 }
 .item-sidebar {
   grid-area: sidebar;
-  background-color: green;
+  background-color: #eee;
   padding: var(--content-padding);
 }
 .item-main {
   grid-area: main;
+  background-color: #eee;
   padding: var(--content-padding);
 }
 .item-footer {
   grid-area: footer;
-  background-color: purple;
+  background-color: #eee;
   padding: var(--content-padding);
 }
 
 .item-sidebar aside {
   position: sticky;
+  background-color: #f5f5f5;
   top: var(--content-padding);;
 }
 
 .example {
-  border: 1px solid gray;
   padding: var(--content-padding);
   margin-bottom: 12px;
   background-color: #fff;
