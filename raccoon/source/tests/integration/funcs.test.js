@@ -7,6 +7,7 @@ describe("func methods", () => {
 
     proxy.a = 1;
     // The first argument will always be the proxy which is applied by the framework.
+    // ToDo: is the wrapping () needed here?
     funcs.myFn = (proxy, value) => (proxy.a = Number(value) + 1);
 
     appEl.querySelector("button").click();

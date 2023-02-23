@@ -18,8 +18,10 @@
         <aside>
           <menu>
             <li><a href="#intro">Intro</a></li>
+            <li><a href="#demo">Demo</a></li>
             <li><a href="#setup">Setup</a></li>
             <li><a href="#get-started">Get started</a></li>
+            <li><a href="#template-engine">Template engine</a></li>
             <li><a href="#proxy">Proxy</a></li>
             <li><a href="#compute">Compute</a></li>
             <li><a href="#funcs">Funcs</a></li>
@@ -32,6 +34,7 @@
             <li><a href="#r-model">r-model</a></li>
             <li><a href="#states/state-manager">States/state-manager</a></li>
             <li><a href="#multiple-components">Multiple components</a></li>
+            <li><a href="#">Limitations</a></li>
           </menu>
         </aside>
       </div>
@@ -40,69 +43,11 @@
           <article class="example" id="intro">
             <h2>Intro</h2>
           </article>
+          
+          <article class="example" id="demo">
+            <h2>Demo</h2>
 
-          <article class="example" id="setup">
-            <h2>Setup</h2>
-          </article>
-
-          <article class="example" id="get-started">
-            <h2>Get started</h2>
-          </article>
-
-          <article class="example" id="proxy">
-            <h2>Proxy</h2>
-          </article>
-
-          <article class="example" id="compute">
-            <h2>Compute</h2>
-          </article>
-
-          <article class="example" id="funcs">
-            <h2>Funcs</h2>
-          </article>
-
-          <article class="example" id="click">
-            <h2>@click</h2>
-          </article>
-
-          <article class="example" id="input">
-            <h2>@input</h2>
-          </article>
-
-          <article class="example" id="change">
-            <h2>@change</h2>
-          </article>
-
-          <article class="example" id="keyup">
-            <h2>@keyup</h2>
-          </article>
-
-          <article class="example" id="keydown">
-            <h2>@keydown</h2>
-          </article>
-
-          <article class="example" id="r-for">
-            <h2>r-for</h2>
-          </article>
-
-          <article class="example" id="r-model">
-            <h2>r-model</h2>
-          </article>
-
-          <article class="example" id="states/state-manager">
-            <h2>states/state-manager</h2>
-          </article>
-
-          <article class="example" id="multiple-components">
-            <h2>multiple components</h2>
-          </article>
-
-
-
-
-
-
-          <button @click="funcs.getUsers()">Get Users</button>
+            <button @click="funcs.getUsers()">Get Users</button>
           <br />
           <button @click="funcs.getProducts()">Get Products</button>
           <br />
@@ -180,6 +125,158 @@
           <pre><code class="language-markup"><!--<ul r-for="user of users">
   <li>{{ user }}</li>
 </ul>--></code></pre>
+          </article>
+
+          <article class="example" id="setup">
+            <h2>Setup</h2>
+
+            <p>
+              Install Raccoon [From where?],
+              Import it
+              use it.
+            </p>
+
+          </article>
+
+          <article class="example" id="get-started">
+            <h2>Get started</h2>
+
+            <!-- 
+              
+              Continue here. 
+
+              Add script ot a demo.js file
+              The scope has to be unique e.g proxy: demoProxy
+              Create an example that's using funcs, compute, proxy, r-for and r-model
+              
+            -->
+
+            <div id="demo-component">
+              <button @click="proxy.price += 10">Count Up</button>
+              <button @click="proxy.quantity += 1">Count Up</button>
+  
+              <button @click="funcs.getUsers()">Get Users</button>
+  
+              <div>{{price}}</div>
+              <div>{{quantity}}</div>
+              <div>{{sum}}</div>
+
+              <script>
+                const componentEl = document.getElementById("demo-component");
+    
+                const { proxy, compute, funcs } = new Raccoon(componentEl);
+    
+                proxy.price = 5;
+                proxy.quantity = 15;
+    
+                compute.sum = () => proxy.price * proxy.quantity;
+              </script>
+            </div>
+
+
+          </article>
+
+          <article class="example" id="template-engine">
+            <h2>Template engine</h2>
+
+          </article>
+
+          <article class="example" id="proxy">
+            <h2>Proxy</h2>
+
+            - {proxy.name} or {just name}
+
+            The proxy does the heavy lifting when it comes to the reactivities. 
+            It's basically an object with properties that will update the dom every-time a property changes.
+
+            <pre><code class="language-js"><!--proxy.a = 1;
+proxy.b = 2;--></code></pre>
+
+              <pre><code class="language-markup"><!--<p>a = {proxy.a}, b = {proxy.b}</p>--></code></pre>
+
+              <p>Output: a = 1, b = 2</p>
+
+              <p><strong>TODO: Explain when proxy.a is needed and when it's ok to use just a.</strong></p>
+          </article>
+
+          <article class="example" id="compute">
+            <h2>Compute</h2>
+
+            <pre><code class="language-js"><!--compute.sum = () => proxy.a + proxy.b;
+
+proxy.a = 12;
+proxy.b = 12;--></code></pre>
+
+          <p>Output the computed sum</p>
+          <pre><code class="language-markup"><!--The sum of a and b is: <strong>{sum}</strong>--></code></pre>
+
+          <p>Sum in this case will be 24</p>
+            
+          </article>
+
+          <article class="example" id="funcs">
+            <h2>Funcs</h2>
+
+            <p>This creates a button which counts up proxy.a by one on click using a function.</p>
+
+            <pre><code class="language-markup"><!--<div id="component">
+  <button id="button" @click='funcs.myFn(proxy.a)'>Count Up</button>
+</div>--></code></pre>
+
+            <p>
+              The funcs-function takes 2 arguments, the proxy which is magically applied by the framework and the value which in this case is passed as an argument from the @click event.
+              In this example we are getting the value from proxy.a and then increase it by one and save it back.
+            </p>
+
+            <pre><code class="language-js"><!--proxy.a = 1;
+// The first argument will always be the proxy which is applied by the framework.
+funcs.myFn = (proxy, value) => {
+  proxy.a = Number(value) + 1;
+}--></code></pre>
+
+          </article>
+
+          <article class="example" id="click">
+            <h2>@click</h2>
+          </article>
+
+          <article class="example" id="input">
+            <h2>@input</h2>
+          </article>
+
+          <article class="example" id="change">
+            <h2>@change</h2>
+          </article>
+
+          <article class="example" id="keyup">
+            <h2>@keyup</h2>
+          </article>
+
+          <article class="example" id="keydown">
+            <h2>@keydown</h2>
+          </article>
+
+          <article class="example" id="r-for">
+            <h2>r-for</h2>
+
+            - r-for-key
+            - Wrapper
+          </article>
+
+          <article class="example" id="r-model">
+            <h2>r-model</h2>
+          </article>
+
+          <article class="example" id="states/state-manager">
+            <h2>states/state-manager</h2>
+          </article>
+
+          <article class="example" id="multiple-components">
+            <h2>multiple components</h2>
+
+            - proxy, funcs, compute are scoped within each component. Optional use of proxy.name or just name.
+          </article>
+
         </div>
       </div>
       <div class="item-footer">d</div>
