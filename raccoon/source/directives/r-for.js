@@ -56,7 +56,7 @@ const update = (proxyMap) => {
     forEl.innerHTML = "";
 
     // Return if error
-    if (!target) return console.warn(`v-for couldn't find binding to proxy.${targetProperty}`);
+    if (!target) return
 
     // Replace the r-for innerHTML with the parsed template
     forEl.innerHTML = getParsedTemplate(varName, operator, target, forEl);
