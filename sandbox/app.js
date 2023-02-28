@@ -2,7 +2,7 @@
 // import { Raccoon } from "raccoon";
 import { Raccoon } from "./node_modules/raccoon/source/index.js";
 
-const appEl = document.getElementById("app");
+const appEl = document.getElementById("demo-component-1");
 
 const { proxy, compute, funcs } = new Raccoon(appEl);
 

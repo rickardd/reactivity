@@ -39,92 +39,94 @@
         </aside>
       </div>
       <div class="item-main">
-        <div id="app">
-          <article class="example" id="intro">
-            <h2>Intro</h2>
-          </article>
-          
-          <article class="example" id="demo">
-            <h2>Demo</h2>
+        <article class="example" id="intro">
+          <h2>Intro</h2>
+        </article>
+        
+        <article class="example" id="demo">
+          <div id="demo-component-1">
+              <h2>Demo</h2>
 
-            <button @click="funcs.getUsers()">Get Users</button>
-          <br />
-          <button @click="funcs.getProducts()">Get Products</button>
-          <br />
-          <br />
-          <br />
-          <button @click="proxy.price += 10">Count Up</button>
-          <div>{{price}}</div>
-          <div>{{quantity}}</div>
-          <div>{{tax}}</div>
-          <div>{{sum}}</div>
-          <div>{{total}}</div>
-          <div>
-            <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
-            <!-- both :value="tax" and :value="proxy.tax" are valid -->
-            <label>
-              <span>Price: </span>
-              <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price" />
-            </label>
-          </div>
-          <div>
-            <label>
-              <span>Tax: @input</span>
-              <input type="number" @input="proxy.tax = Number(event.target.value)" :value="tax" />
-            </label>
-          </div>
-          <div>
-            <label>
-              <span>Tax: @change</span>
-              <input type="number" @change="proxy.tax = Number(event.target.value)" :value="tax" />
-            </label>
-          </div>
-          <div>
-            <label>
-              <span>Tax: @keyup</span>
-              <input type="number" @keyup="proxy.tax = Number(event.target.value)" :value="tax" />
-            </label>
-          </div>
-          <div>
-            <label>
-              <span>Tax: @keydown</span>
-              <input type="number" @keydown="proxy.tax = Number(event.target.value)" :value="tax" />
-            </label>
-          </div>
-          <div>
-            <label>
-              <span>Tax: r-model</span>
-              <input type="number" r-model="tax" />
-            </label>
-          </div>
-          <!-- r-for -->
-          <br />
-          <strong>r-for</strong>
-          <br />
-          <button @click="proxy.names = [...proxy.names, 'Rick']">Add Rick</button>
-          <button @click="proxy.names = [...proxy.names, 'Carl']">Add Carl</button>
-          <button @click="proxy.names = [...proxy.names, 'Paula']">Add Paula</button>
-          <button @click="proxy.names = [...proxy.names, 'Foxy']">Add Foxy</button>
-          <br />
-          <!-- A handler for this is required -->
-          <button @click="delete proxy.names">Remove proxy.names</button>
-          <!-- Triggers deleteProperty() -->
-          <!-- Most methods of deleting does not trigger the proxy set event -->
-          <!-- But splice works  -->
-          <!-- For delete to work properly we need a proxy for each value in the array. -->
-          <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
-          <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
-          <br />
-          <ul r-for="name of names">
-            <li>{{ name }}</li>
-          </ul>
-          <ul r-for="user of users">
-            <!-- ToDo: The r-for does not handle objects e.g user.firstName. -->
-            <li>{{ user }}</li>
-          </ul>
-          <pre><code class="language-markup"><!--<ul r-for="user of users">
-  <li>{{ user }}</li>
-</ul>--></code></pre>
+              <button @click="funcs.getUsers()">Get Users</button>
+              <br />
+              <button @click="funcs.getProducts()">Get Products</button>
+              <br />
+              <br />
+              <br />
+              <button @click="proxy.price += 10">Count Up</button>
+              <div>{{price}}</div>
+              <div>{{quantity}}</div>
+              <div>{{tax}}</div>
+              <div>{{sum}}</div>
+              <div>{{total}}</div>
+              <div>
+                <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
+                <!-- both :value="tax" and :value="proxy.tax" are valid -->
+                <label>
+                  <span>Price: </span>
+                  <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price" />
+                </label>
+              </div>
+            <div>
+              <label>
+                <span>Tax: @input</span>
+                <input type="number" @input="proxy.tax = Number(event.target.value)" :value="tax" />
+              </label>
+            </div>
+            <div>
+              <label>
+                <span>Tax: @change</span>
+                <input type="number" @change="proxy.tax = Number(event.target.value)" :value="tax" />
+              </label>
+            </div>
+            <div>
+              <label>
+                <span>Tax: @keyup</span>
+                <input type="number" @keyup="proxy.tax = Number(event.target.value)" :value="tax" />
+              </label>
+            </div>
+            <div>
+              <label>
+                <span>Tax: @keydown</span>
+                <input type="number" @keydown="proxy.tax = Number(event.target.value)" :value="tax" />
+              </label>
+            </div>
+            <div>
+              <label>
+                <span>Tax: r-model</span>
+                <input type="number" r-model="tax" />
+              </label>
+            </div>
+            <!-- r-for -->
+            <br />
+            <strong>r-for</strong>
+            <br />
+            <button @click="proxy.names = [...proxy.names, 'Rick']">Add Rick</button>
+            <button @click="proxy.names = [...proxy.names, 'Carl']">Add Carl</button>
+            <button @click="proxy.names = [...proxy.names, 'Paula']">Add Paula</button>
+            <button @click="proxy.names = [...proxy.names, 'Foxy']">Add Foxy</button>
+            <br />
+            <!-- A handler for this is required -->
+            <button @click="delete proxy.names">Remove proxy.names</button>
+            <!-- Triggers deleteProperty() -->
+            <!-- Most methods of deleting does not trigger the proxy set event -->
+            <!-- But splice works  -->
+            <!-- For delete to work properly we need a proxy for each value in the array. -->
+            <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
+            <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
+            <br />
+            <ul r-for="name of names">
+              <li>{{ name }}</li>
+            </ul>
+            <ul r-for="user of users">
+              <!-- ToDo: The r-for does not handle objects e.g user.firstName. -->
+              <li>{{ user }}</li>
+            </ul>
+            <pre><code class="language-markup"><!--<ul r-for="user of users">
+    <li>{{ user }}</li>
+  </ul>--></code></pre>
+          
+            </div>
           </article>
 
           <article class="example" id="setup">
@@ -399,7 +401,7 @@ compute2.withDollarSign = () => `$${proxy2.a}`;
 --></code></pre>
           </article>
 
-        </div>
+        
       </div>
       <div class="item-footer">d</div>
     </div>
