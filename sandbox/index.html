@@ -189,12 +189,12 @@
             Output
             <pre><code class="language-js"><!--1
 2
-3--></code></pre>
+Sum: 3--></code></pre>
 
 
             <pre><code class="language-js"><!--proxy.a = 1;
 proxy.b = 2;
-compute.sum = () => `$${proxy.a + proxy.b}`;
+compute.sum = () => `$Sum: ${proxy.a + proxy.b}`;
             --></code></pre>
 
           </article>
@@ -352,11 +352,29 @@ funcs.myFn = (proxy, value) => {
           <article class="example" id="multiple-components">
             <h2>multiple components</h2>
 
-            - proxy, funcs, compute are scoped within each component. Optional use of proxy.name or just name.
+            <p>Having multiple components works as expected, proxies, computes, functions all works withing the component scope. 
+              Just ensure they are uniquely named as example shows. In this example proxy.a in component-1 is not the same as proxy.a in component-2.</p>
 
-            <pre><code class="language-markup"><!----></code></pre>
+            <pre><code class="language-markup"><!--<div id="component-1">
+  <button id="button" @click='proxy.a += 10'>Count Up</button>
+</div>
+
+<div id="component-2">
+  <button id="button" @click='proxy.a += 10'>Count Up</button>
+</div>--></code></pre>
                         
-            <pre><code class="language-js"><!----></code></pre>
+            <pre><code class="language-js"><!--const componentString1 = `<div id="component-1"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`;
+const componentString2 = `<div id="component-2"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`;
+
+const { appEl: appEl1, proxy: proxy1, compute: compute1 } = new Raccoon(document.getElementById(component-1));
+const { appEl: appEl2, proxy: proxy2, compute: compute2 } = new Raccoon(document.getElementById(component-2));
+
+proxy1.a = 1;
+proxy2.a = 2;
+
+compute1.withDollarSign = () => `$${proxy1.a}`;
+compute2.withDollarSign = () => `$${proxy2.a}`;
+--></code></pre>
           </article>
 
         </div>
@@ -366,7 +384,7 @@ funcs.myFn = (proxy, value) => {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/toolbar/prism-toolbar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/toolbar/prism-toolbar.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script> -->
   </body>
 </html>
