@@ -42,31 +42,31 @@
         <article class="example" id="intro">
           <h2>Intro</h2>
         </article>
-        
+
         <article class="example" id="demo">
           <div id="demo-component-1">
-              <h2>Demo</h2>
+            <h2>Demo</h2>
 
-              <button @click="funcs.getUsers()">Get Users</button>
-              <br />
-              <button @click="funcs.getProducts()">Get Products</button>
-              <br />
-              <br />
-              <br />
-              <button @click="proxy.price += 10">Count Up</button>
-              <div>{{price}}</div>
-              <div>{{quantity}}</div>
-              <div>{{tax}}</div>
-              <div>{{sum}}</div>
-              <div>{{total}}</div>
-              <div>
-                <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
-                <!-- both :value="tax" and :value="proxy.tax" are valid -->
-                <label>
-                  <span>Price: </span>
-                  <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price" />
-                </label>
-              </div>
+            <button @click="funcs.getUsers()">Get Users</button>
+            <br />
+            <button @click="funcs.getProducts()">Get Products</button>
+            <br />
+            <br />
+            <br />
+            <button @click="proxy.price += 10">Count Up</button>
+            <div>{{price}}</div>
+            <div>{{quantity}}</div>
+            <div>{{tax}}</div>
+            <div>{{sum}}</div>
+            <div>{{total}}</div>
+            <div>
+              <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
+              <!-- both :value="tax" and :value="proxy.tax" are valid -->
+              <label>
+                <span>Price: </span>
+                <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price" />
+              </label>
+            </div>
             <div>
               <label>
                 <span>Tax: @input</span>
@@ -125,25 +125,19 @@
             <pre><code class="language-markup"><!--<ul r-for="user of users">
     <li>{{ user }}</li>
   </ul>--></code></pre>
-          
-            </div>
-          </article>
+          </div>
+        </article>
 
-          <article class="example" id="setup">
-            <h2>Setup</h2>
+        <article class="example" id="setup">
+          <h2>Setup</h2>
 
-            <p>
-              Install Raccoon [From where?],
-              Import it
-              use it.
-            </p>
+          <p>Install Raccoon [From where?], Import it use it.</p>
+        </article>
 
-          </article>
+        <article class="example" id="get-started">
+          <h2>Get started</h2>
 
-          <article class="example" id="get-started">
-            <h2>Get started</h2>
-
-            <!-- 
+          <!-- 
               
               Continue here. 
 
@@ -153,76 +147,70 @@
               
             -->
 
-            <div id="demo-component">
-              <button @click="proxy.price += 10">Count Up</button>
-              <button @click="proxy.quantity += 1">Count Up</button>
-  
-              <button @click="funcs.getUsers()">Get Users</button>
-  
-              <div>{{price}}</div>
-              <div>{{quantity}}</div>
-              <div>{{sum}}</div>
+          <div id="demo-component">
+            <button @click="proxy.price += 10">Count Up</button>
+            <button @click="proxy.quantity += 1">Count Up</button>
 
-              <script>
-                const componentEl = document.getElementById("demo-component");
-    
-                const { proxy, compute, funcs } = new Raccoon(componentEl);
-    
-                proxy.price = 5;
-                proxy.quantity = 15;
-    
-                compute.sum = () => proxy.price * proxy.quantity;
-              </script>
-            </div>
+            <button @click="funcs.getUsers()">Get Users</button>
 
+            <div>{{price}}</div>
+            <div>{{quantity}}</div>
+            <div>{{sum}}</div>
 
-          </article>
+            <script>
+              const componentEl = document.getElementById("demo-component");
 
-          <article class="example" id="template-engine">
-            <h2>Template engine</h2>
+              const { proxy, compute, funcs } = new Raccoon(componentEl);
 
-            [ToDo] : Prevent JS to render the example.
-            <pre><code class="language-markup"><!--<div id="component">
+              proxy.price = 5;
+              proxy.quantity = 15;
+
+              compute.sum = () => proxy.price * proxy.quantity;
+            </script>
+          </div>
+        </article>
+
+        <article class="example" id="template-engine">
+          <h2>Template engine</h2>
+
+          [ToDo] : Prevent JS to render the example.
+          <pre><code class="language-markup"><!--<div id="component">
   <div id="valueA">{{a}}</div>
   <div id="valueB">{{b}}</div>
   <div id="sum">{{sum}}</div> 
 </div>--></code></pre>
-            
-            Output
-            <pre><code class="language-js"><!--1
+
+          Output
+          <pre><code class="language-js"><!--1
 2
 Sum: 3--></code></pre>
 
-
-            <pre><code class="language-js"><!--proxy.a = 1;
+          <pre><code class="language-js"><!--proxy.a = 1;
 proxy.b = 2;
 compute.sum = () => `$Sum: ${proxy.a + proxy.b}`;
             --></code></pre>
+        </article>
 
-          </article>
+        <article class="example" id="proxy">
+          <h2>Proxy</h2>
 
-          <article class="example" id="proxy">
-            <h2>Proxy</h2>
+          - {proxy.name} or {just name} The proxy does the heavy lifting when it comes to the reactivities. It's basically an object with properties that will update the dom every-time a property
+          changes.
 
-            - {proxy.name} or {just name}
-
-            The proxy does the heavy lifting when it comes to the reactivities. 
-            It's basically an object with properties that will update the dom every-time a property changes.
-
-            <pre><code class="language-js"><!--proxy.a = 1;
+          <pre><code class="language-js"><!--proxy.a = 1;
 proxy.b = 2;--></code></pre>
 
-              <pre><code class="language-markup"><!--<p>a = {proxy.a}, b = {proxy.b}</p>--></code></pre>
+          <pre><code class="language-markup"><!--<p>a = {proxy.a}, b = {proxy.b}</p>--></code></pre>
 
-              <p>Output: a = 1, b = 2</p>
+          <p>Output: a = 1, b = 2</p>
 
-              <p><strong>TODO: Explain when proxy.a is needed and when it's ok to use just a.</strong></p>
-          </article>
+          <p><strong>TODO: Explain when proxy.a is needed and when it's ok to use just a.</strong></p>
+        </article>
 
-          <article class="example" id="compute">
-            <h2>Compute</h2>
+        <article class="example" id="compute">
+          <h2>Compute</h2>
 
-            <pre><code class="language-js"><!--compute.sum = () => proxy.a + proxy.b;
+          <pre><code class="language-js"><!--compute.sum = () => proxy.a + proxy.b;
 
 proxy.a = 12;
 proxy.b = 12;--></code></pre>
@@ -231,104 +219,91 @@ proxy.b = 12;--></code></pre>
           <pre><code class="language-markup"><!--The sum of a and b is: <strong>{sum}</strong>--></code></pre>
 
           <p>Sum in this case will be 24</p>
-            
-          </article>
+        </article>
 
-          <article class="example" id="funcs">
-            <h2>Funcs</h2>
+        <article class="example" id="funcs">
+          <h2>Funcs</h2>
 
-            <p>This creates a button which counts up proxy.a by one on click using a function.</p>
+          <p>This creates a button which counts up proxy.a by one on click using a function.</p>
 
-            <pre><code class="language-markup"><!--<div id="component">
+          <pre><code class="language-markup"><!--<div id="component">
   <button id="button" @click='funcs.myFn(proxy.a)'>Count Up</button>
 </div>--></code></pre>
 
-            <p>
-              The funcs-function takes 2 arguments, the proxy which is magically applied by the framework and the value which in this case is passed as an argument from the @click event.
-              In this example we are getting the value from proxy.a and then increase it by one and save it back.
-            </p>
+          <p>
+            The funcs-function takes 2 arguments, the proxy which is magically applied by the framework and the value which in this case is passed as an argument from the @click event. In this example
+            we are getting the value from proxy.a and then increase it by one and save it back.
+          </p>
 
-            <pre><code class="language-js"><!--proxy.a = 1;
+          <pre><code class="language-js"><!--proxy.a = 1;
 // The first argument will always be the proxy which is applied by the framework.
 funcs.myFn = (proxy, value) => {
   proxy.a = Number(value) + 1;
 }--></code></pre>
+        </article>
 
-          </article>
+        <article class="example" id="click">
+          <h2>@click</h2>
 
-          <article class="example" id="click">
-            <h2>@click</h2>
+          This could be used with funcs too
 
-            This could be used with funcs too
-
-            <pre><code class="language-markup"><!--<div id="component">
+          <pre><code class="language-markup"><!--<div id="component">
   <button id="button" @click='proxy.a += 10'>Count Up</button>
 </div>--></code></pre>
-            
-            <pre><code class="language-js"><!--proxy.a = 0--></code></pre>
 
-          </article>
+          <pre><code class="language-js"><!--proxy.a = 0--></code></pre>
+        </article>
 
-          <article class="example" id="input">
-            <h2>@input</h2>
+        <article class="example" id="input">
+          <h2>@input</h2>
 
-            This could be used with funcs too
-            
-            <pre><code class="language-markup"><!--<div id="component">
+          This could be used with funcs too
+
+          <pre><code class="language-markup"><!--<div id="component">
   <label for="price">Price</label>
   <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
 </div>--></code></pre>
-            
-            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
-          </article>
 
-          <article class="example" id="change">
-            <h2>@change</h2>
-            
-            <pre><code class="language-markup"><!--<div id="component">
+          <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
+        </article>
+
+        <article class="example" id="change">
+          <h2>@change</h2>
+
+          <pre><code class="language-markup"><!--<div id="component">
   <label for="price">Price</label>
   <input type="number" @change="proxy.price = Number(event.target.value)" :value="proxy.price">
 </div>--></code></pre>
-            
-            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
-          </article>
 
-          <article class="example" id="keyup">
-            <h2>@keyup</h2>
-            
-            <pre><code class="language-markup"><!--<div id="component">
+          <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
+        </article>
+
+        <article class="example" id="keyup">
+          <h2>@keyup</h2>
+
+          <pre><code class="language-markup"><!--<div id="component">
   <label for="price">Price</label>
   <input type="number" @keyup="proxy.price = Number(event.target.value)" :value="proxy.price">
 </div>--></code></pre>
-            
-            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
-          </article>
-          
-          <article class="example" id="keydown">
-            <h2>@keydown</h2>
-            
-            <pre><code class="language-markup"><!--<div id="component">
+
+          <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
+        </article>
+
+        <article class="example" id="keydown">
+          <h2>@keydown</h2>
+
+          <pre><code class="language-markup"><!--<div id="component">
   <label for="price">Price</label>
   <input type="number" @keydown="proxy.price = Number(event.target.value)" :value="proxy.price">
 </div>--></code></pre>
-            
-            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
-          </article>
 
-          <article class="example" id="r-for">
-            <h2>r-for</h2>
-            
-            <pre><code class="language-markup"><!--<div id="component">
-  <div r-for="name of names">
-    <article class="card">
-      <span class="text-red">{{ name }}<span>
-    </article>
-  </div>
-</div>--></code></pre>
-              
-            <p>An inner wrapper is required for the rendering precess.</p>
+          <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
+        </article>
 
-<pre><code class="language-markup"><!--<div id="component">
+        <article class="example" id="r-for">
+          <h2>r-for</h2>
+
+          <pre><code class="language-markup"><!--<div id="component">
   <div r-for="name of names">
     <article class="card">
       <span class="text-red">{{ name }}<span>
@@ -336,58 +311,69 @@ funcs.myFn = (proxy, value) => {
   </div>
 </div>--></code></pre>
 
-            <p>Invalid r-for loop as inner wrapper is missing.</p>
+          <p>An inner wrapper is required for the rendering precess.</p>
 
-<pre><code class="language-markup"><!--<div id="component">
+          <pre><code class="language-markup"><!--<div id="component">
+  <div r-for="name of names">
+    <article class="card">
+      <span class="text-red">{{ name }}<span>
+    </article>
+  </div>
+</div>--></code></pre>
+
+          <p>Invalid r-for loop as inner wrapper is missing.</p>
+
+          <pre><code class="language-markup"><!--<div id="component">
   <div r-for="name of names">
     {{ name }}
 </div>--></code></pre>
 
-            <p>An r-for-key will be dynamically added to the markup which is required during the rendering process.</p>
-                        
-            <pre><code class="language-js"><!--proxy.names = ["Lisa", "Frank", "Steve"];--></code></pre>
-          </article>
+          <p>An r-for-key will be dynamically added to the markup which is required during the rendering process.</p>
 
-          <article class="example" id="r-model">
-            <h2>r-model</h2>
+          <pre><code class="language-js"><!--proxy.names = ["Lisa", "Frank", "Steve"];--></code></pre>
+        </article>
 
-            <pre><code class="language-markup"><!--<div id="component">
+        <article class="example" id="r-model">
+          <h2>r-model</h2>
+
+          <pre><code class="language-markup"><!--<div id="component">
   <input id="input-el" type="number" r-model="proxy.price">
 </div>--></code></pre>
 
-            prefix with proxy is optional, above r-model could be used like this.
+          prefix with proxy is optional, above r-model could be used like this.
 
-            <pre><code class="language-markup"><!--<div id="component">
+          <pre><code class="language-markup"><!--<div id="component">
   <input id="input-el" type="number" r-model="price">
 </div>--></code></pre>
 
+          <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
+        </article>
 
-            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
-          </article>
+        <article class="example" id="states/state-manager">
+          <h2>states/state-manager</h2>
 
-          <article class="example" id="states/state-manager">
-            <h2>states/state-manager</h2>
+          <pre><code class="language-markup"><!----></code></pre>
 
-            <pre><code class="language-markup"><!----></code></pre>
-                        
-            <pre><code class="language-js"><!----></code></pre>
-          </article>
+          <pre><code class="language-js"><!----></code></pre>
+        </article>
 
-          <article class="example" id="multiple-components">
-            <h2>multiple components</h2>
+        <article class="example" id="multiple-components">
+          <h2>multiple components</h2>
 
-            <p>Having multiple components works as expected, proxies, computes, functions all works withing the component scope. 
-              Just ensure they are uniquely named as example shows. In this example proxy.a in component-1 is not the same as proxy.a in component-2.</p>
+          <p>
+            Having multiple components works as expected, proxies, computes, functions all works withing the component scope. Just ensure they are uniquely named as example shows. In this example
+            proxy.a in component-1 is not the same as proxy.a in component-2.
+          </p>
 
-            <pre><code class="language-markup"><!--<div id="component-1">
+          <pre><code class="language-markup"><!--<div id="component-1">
   <button id="button" @click='proxy.a += 10'>Count Up</button>
 </div>
 
 <div id="component-2">
   <button id="button" @click='proxy.a += 10'>Count Up</button>
 </div>--></code></pre>
-                        
-            <pre><code class="language-js"><!--const componentString1 = `<div id="component-1"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`;
+
+          <pre><code class="language-js"><!--const componentString1 = `<div id="component-1"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`;
 const componentString2 = `<div id="component-2"><button id="button" @click='proxy.a += 10'>Count Up</button></div>`;
 
 const { appEl: appEl1, proxy: proxy1, compute: compute1 } = new Raccoon(document.getElementById(component-1));
@@ -399,9 +385,7 @@ proxy2.a = 2;
 compute1.withDollarSign = () => `$${proxy1.a}`;
 compute2.withDollarSign = () => `$${proxy2.a}`;
 --></code></pre>
-          </article>
-
-        
+        </article>
       </div>
       <div class="item-footer">d</div>
     </div>
