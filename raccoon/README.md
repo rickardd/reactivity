@@ -1,20 +1,7 @@
-ToDo
-
-- Separate index.js and reactive.js
-- Better folder structure
-- Set up so the server can run in sandbox but having the source code outside. 
-- Add testing - Jest
-- Add if attributes
-- Add loop attributes
-- Allow multiple components in one view
-- Create example: Use eternal API and parse the data. 
-- Create a quiz
-
-
 ## NVM version
 $ nvm use
 
-## Sandbox
+## Sandbox/Documentation
 
 To setup the sandbox project we need to link the local project with the sandbox project. 
 Start in the project root folder, then.
@@ -25,7 +12,6 @@ npm link
 cd ../sandbox
 npm link raccoon
 npm start
-# Only the localhost http://127.0.0.1:8080 works with the linking.
 ```
 
 List linked packages
@@ -50,8 +36,6 @@ in vscode run 'Debug: JavaScript Debug Terminal'
 or
 `npm run test:watch`
 
-
-
 This should stop on 'debugger' breakpoints in vs code and inspecting values with the mouse is possible. 
 
 Another alternative might be to let the test finish then hit `w` and then `i` (run failing test interactively)
@@ -74,7 +58,7 @@ If useing the CLI we have a few more options.
 - key press p - stops and lists some options
 - Now we can run specific test or just run the failed ones. 
 
-Alternativliy
+Alternatively
 Let the test finish then hit `w`
 
  - Press a to run all tests.
