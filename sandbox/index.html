@@ -42,6 +42,8 @@
       <div class="item-main">
         <article class="example" id="intro">
           <h2>Intro</h2>
+
+          <p>Raccoon is an experimental project inspired by Vue. It's a component based reactive framework with basic functionality such as, reactivity, template engine, computed functions, dom-events, etc.</p>
         </article>
 
         <article class="example" id="demo">
@@ -116,16 +118,11 @@
             <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
             <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
             <br />
-            <ul r-for="name of names">
-              <li>{{ name }}</li>
-            </ul>
-            <ul r-for="user of users">
+
+            <ul r-for="user of proxy.users">
               <!-- ToDo: The r-for does not handle objects e.g user.firstName. -->
               <li>{{ user }}</li>
             </ul>
-            <pre><code class="language-markup"><!--<ul r-for="user of users">
-    <li>{{ user }}</li>
-  </ul>--></code></pre>
           </div>
         </article>
 

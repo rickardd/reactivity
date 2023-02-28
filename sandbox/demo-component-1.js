@@ -11,6 +11,7 @@ proxy.price = 5;
 proxy.quantity = 15;
 proxy.tax = 25;
 proxy.names = ["Frank", "Lisa", "Peter", "Amanda"];
+proxy.users = []
 
 // Documentation note: Compute methods should be declared before properties.
 // Compute will only update after a proxy property has triggered a changed.
@@ -19,9 +20,6 @@ proxy.names = ["Frank", "Lisa", "Peter", "Amanda"];
 compute.sum = () => proxy.price * proxy.quantity;
 
 compute.total = () => proxy.price * proxy.quantity + proxy.tax;
-
-
-proxy.users = []
 
 funcs.getUsers = (proxy, value) => {
   console.log(proxy, value, "users...");
