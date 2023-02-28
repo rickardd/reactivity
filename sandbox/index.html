@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sandbox</title>
-    <script src="./app.js" type="module"></script>
+    <script src="./demo-component-1.js" type="module"></script>
+    <script src="./demo-component-2.js" type="module"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" />
     <link rel="stylesheet" href="./css/main.css" />
   </head>
@@ -137,37 +138,42 @@
         <article class="example" id="get-started">
           <h2>Get started</h2>
 
-          <!-- 
-              
-              Continue here. 
+          <div id="demo-component-2">
+            <button @click="proxy.price += 10">Increase price</button>
+            <button @click="proxy.quantity += 1">Increase quantity</button>
+            <button @click="funcs.addOnePercentTax()">Add 1% tax</button>
 
-              Add script ot a demo.js file
-              The scope has to be unique e.g proxy: demoProxy
-              Create an example that's using funcs, compute, proxy, r-for and r-model
-              
-            -->
-
-          <div id="demo-component">
-            <button @click="proxy.price += 10">Count Up</button>
-            <button @click="proxy.quantity += 1">Count Up</button>
-
-            <button @click="funcs.getUsers()">Get Users</button>
-
-            <div>{{price}}</div>
-            <div>{{quantity}}</div>
-            <div>{{sum}}</div>
-
-            <script>
-              const componentEl = document.getElementById("demo-component");
-
-              const { proxy, compute, funcs } = new Raccoon(componentEl);
-
-              proxy.price = 5;
-              proxy.quantity = 15;
-
-              compute.sum = () => proxy.price * proxy.quantity;
-            </script>
+            <div>Price: {{price}}</div>
+            <div>Quantity: {{quantity}}</div>
+            <div>Tax: {{taxHuman}}</div>
+            <div>Sum (inc tax): {{sum}}</div>
           </div>
+
+          <pre><code class="language-markup"><!--<div id="demo-component-2">
+  <button @click="proxy.price += 10">Increase price</button>
+  <button @click="proxy.quantity += 1">Increase quantity</button>
+  <button @click="funcs.addOnePercentTax()">Add 1% tax</button>
+
+  <div>Price: {{price}}</div>
+  <div>Quantity: {{quantity}}</div>
+  <div>Tax: {{taxHuman}}</div>
+  <div>Sum (inc tax): {{sum}}</div>
+</div>--></code></pre>
+
+          <pre><code class="language-js"><!--import { Raccoon } from "raccoon";
+
+const componentEl = document.getElementById("demo-component-2");
+
+const { proxy, compute, funcs } = new Raccoon(componentEl);
+
+proxy.price = 1;
+proxy.quantity = 15;
+proxy.tax = 0.01;
+
+compute.sum = () => (proxy.price * proxy.quantity) + (100 * proxy.tax);
+compute.taxHuman = () => `${100 * proxy.tax}%`
+
+funcs.addOnePercentTax = () => proxy.tax += 0.01--></code></pre>
         </article>
 
         <article class="example" id="template-engine">
