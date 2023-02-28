@@ -179,6 +179,24 @@
           <article class="example" id="template-engine">
             <h2>Template engine</h2>
 
+            [ToDo] : Prevent JS to render the example.
+            <pre><code class="language-markup"><!--<div id="component">
+  <div id="valueA">{{a}}</div>
+  <div id="valueB">{{b}}</div>
+  <div id="sum">{{sum}}</div> 
+</div>--></code></pre>
+            
+            Output
+            <pre><code class="language-js"><!--1
+2
+3--></code></pre>
+
+
+            <pre><code class="language-js"><!--proxy.a = 1;
+proxy.b = 2;
+compute.sum = () => `$${proxy.a + proxy.b}`;
+            --></code></pre>
+
           </article>
 
           <article class="example" id="proxy">
@@ -238,22 +256,61 @@ funcs.myFn = (proxy, value) => {
 
           <article class="example" id="click">
             <h2>@click</h2>
+
+            This could be used with funcs too
+
+            <pre><code class="language-markup"><!--<div id="component">
+  <button id="button" @click='proxy.a += 10'>Count Up</button>
+</div>--></code></pre>
+            
+            <pre><code class="language-js"><!--proxy.a = 0--></code></pre>
+
           </article>
 
           <article class="example" id="input">
             <h2>@input</h2>
+
+            This could be used with funcs too
+            
+            <pre><code class="language-markup"><!--<div id="component">
+  <label for="price">Price</label>
+  <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price">
+</div>--></code></pre>
+            
+            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
           </article>
 
           <article class="example" id="change">
             <h2>@change</h2>
+            
+            <pre><code class="language-markup"><!--<div id="component">
+  <label for="price">Price</label>
+  <input type="number" @change="proxy.price = Number(event.target.value)" :value="proxy.price">
+</div>--></code></pre>
+            
+            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
           </article>
 
           <article class="example" id="keyup">
             <h2>@keyup</h2>
+            
+            <pre><code class="language-markup"><!--<div id="component">
+  <label for="price">Price</label>
+  <input type="number" @keyup="proxy.price = Number(event.target.value)" :value="proxy.price">
+</div>--></code></pre>
+            
+            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
           </article>
-
+          
           <article class="example" id="keydown">
             <h2>@keydown</h2>
+            
+            <pre><code class="language-markup"><!--<div id="component">
+  <label for="price">Price</label>
+  <input type="number" @keydown="proxy.price = Number(event.target.value)" :value="proxy.price">
+</div>--></code></pre>
+            
+            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
           </article>
 
           <article class="example" id="r-for">
@@ -261,20 +318,45 @@ funcs.myFn = (proxy, value) => {
 
             - r-for-key
             - Wrapper
+
+            <pre><code class="language-markup"><!----></code></pre>
+                        
+            <pre><code class="language-js"><!----></code></pre>
           </article>
 
           <article class="example" id="r-model">
             <h2>r-model</h2>
+
+            <pre><code class="language-markup"><!--<div id="component">
+  <input id="input-el" type="number" r-model="proxy.price">
+</div>--></code></pre>
+
+            prefix with proxy is optional, above r-model could be used like this.
+
+            <pre><code class="language-markup"><!--<div id="component">
+  <input id="input-el" type="number" r-model="price">
+</div>--></code></pre>
+
+
+            <pre><code class="language-js"><!--proxy.price = 1;--></code></pre>
           </article>
 
           <article class="example" id="states/state-manager">
             <h2>states/state-manager</h2>
+
+            <pre><code class="language-markup"><!----></code></pre>
+                        
+            <pre><code class="language-js"><!----></code></pre>
           </article>
 
           <article class="example" id="multiple-components">
             <h2>multiple components</h2>
 
             - proxy, funcs, compute are scoped within each component. Optional use of proxy.name or just name.
+
+            <pre><code class="language-markup"><!----></code></pre>
+                        
+            <pre><code class="language-js"><!----></code></pre>
           </article>
 
         </div>
