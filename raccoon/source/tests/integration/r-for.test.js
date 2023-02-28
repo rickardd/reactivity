@@ -136,7 +136,7 @@ describe("r-for", () => {
       expect(loop3El.attributes["r-for-key"].value).not.toBe("");
     });
 
-    it("logs an error if invalid proxy binding", () => {
+    it("log a warning if invalid proxy binding", () => {
       console.warn = jest.fn();
 
       const componentString = `
@@ -146,11 +146,30 @@ describe("r-for", () => {
             </div>
           </div>
         `;
+
       const { proxy } = setupComponent(componentString, "app");
 
       proxy.names = ["Lisa", "Frank", "Steve"];
 
       expect(console.warn).toHaveBeenCalledWith("v-for couldn't find binding to proxy.unknown");
     });
+  });
+
+  it("does not log a warning if valid proxy binding", () => {
+    console.warn = jest.fn();
+
+    const componentString = `
+          <div id="app">
+            <div r-for="name of names">
+              {{ proxy.name }}
+            </div>
+          </div>
+        `;
+
+    const { proxy } = setupComponent(componentString, "app");
+
+    proxy.names = ["Lisa", "Frank", "Steve"];
+
+    expect(console.warn).toHaveBeenCalledWith("v-for couldn't find binding to proxy.unknown");
   });
 });
