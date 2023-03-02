@@ -9,6 +9,9 @@
     <script src="./demo-component-2.js" type="module"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" />
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="grid">
@@ -26,13 +29,18 @@
             <li><a href="#proxy">Proxy</a></li>
             <li><a href="#compute">Compute</a></li>
             <li><a href="#funcs">Funcs</a></li>
-            <li><a href="#click">@click</a></li>
-            <li><a href="#input">@input</a></li>
-            <li><a href="#change">@change</a></li>
-            <li><a href="#keyup">@keyup</a></li>
-            <li><a href="#keydown">@keydown</a></li>
-            <li><a href="#r-for">r-for</a></li>
-            <li><a href="#r-model">r-model</a></li>
+            <li>
+              <span>Directives</span>
+              <menu>
+                <li><a href="#click">Click</a></li>
+                <li><a href="#input">Input</a></li>
+                <li><a href="#change">Change</a></li>
+                <li><a href="#keyup">Keyup</a></li>
+                <li><a href="#keydown">Keydown</a></li>
+                <li><a href="#r-for">Loop: r-for</a></li>
+                <li><a href="#r-model">Two way binding: r-model</a></li>
+              </menu>
+            </li>
             <li><a href="#states/state-manager">States/state-manager</a></li>
             <li><a href="#multiple-components">Multiple components</a></li>
             <li><a href="#">Limitations</a></li>
@@ -51,64 +59,57 @@
             <h2>Demo</h2>
 
             <button @click="funcs.getUsers()">Get Users</button>
-            <br />
             <button @click="funcs.getProducts()">Get Products</button>
-            <br />
-            <br />
-            <br />
             <button @click="proxy.price += 10">Count Up</button>
-            <div>{{price}}</div>
-            <div>{{quantity}}</div>
-            <div>{{tax}}</div>
-            <div>{{sum}}</div>
-            <div>{{total}}</div>
+            <div class="output"><span>Price:</span><span>{{price}}</span></div>
+            <div class="output"><span>Quantity</span> <span>{{quantity}}</span></div>
+            <div class="output"><span>Tax</span> <span>{{tax}}</span></div>
+            <div class="output"><span>Sum</span> <span>{{sum}}</span></div>
+            <div class="output"><span>Total</span> <span>{{total}}</span></div>
             <div>
               <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
               <!-- both :value="tax" and :value="proxy.tax" are valid -->
-              <label>
+              <label class="output">
                 <span>Price: </span>
                 <input type="number" @input="proxy.price = Number(event.target.value)" :value="proxy.price" />
               </label>
             </div>
             <div>
-              <label>
+              <label class="output">
                 <span>Tax: @input</span>
                 <input type="number" @input="proxy.tax = Number(event.target.value)" :value="tax" />
               </label>
             </div>
             <div>
-              <label>
+              <label class="output">
                 <span>Tax: @change</span>
                 <input type="number" @change="proxy.tax = Number(event.target.value)" :value="tax" />
               </label>
             </div>
             <div>
-              <label>
+              <label class="output">
                 <span>Tax: @keyup</span>
                 <input type="number" @keyup="proxy.tax = Number(event.target.value)" :value="tax" />
               </label>
             </div>
             <div>
-              <label>
+              <label class="output">
                 <span>Tax: @keydown</span>
                 <input type="number" @keydown="proxy.tax = Number(event.target.value)" :value="tax" />
               </label>
             </div>
             <div>
-              <label>
+              <label class="output">
                 <span>Tax: r-model</span>
                 <input type="number" r-model="tax" />
               </label>
             </div>
             <!-- r-for -->
-            <br />
             <strong>r-for</strong>
-            <br />
             <button @click="proxy.names = [...proxy.names, 'Rick']">Add Rick</button>
             <button @click="proxy.names = [...proxy.names, 'Carl']">Add Carl</button>
             <button @click="proxy.names = [...proxy.names, 'Paula']">Add Paula</button>
             <button @click="proxy.names = [...proxy.names, 'Foxy']">Add Foxy</button>
-            <br />
             <!-- A handler for this is required -->
             <button @click="delete proxy.names">Remove proxy.names</button>
             <!-- Triggers deleteProperty() -->
@@ -117,7 +118,6 @@
             <!-- For delete to work properly we need a proxy for each value in the array. -->
             <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
             <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
-            <br />
 
             <ul r-for="user of proxy.users">
               <!-- ToDo: The r-for does not handle objects e.g user.firstName. -->
@@ -136,14 +136,15 @@
           <h2>Get started</h2>
 
           <div id="demo-component-2">
+
             <button @click="proxy.price += 10">Increase price</button>
             <button @click="proxy.quantity += 1">Increase quantity</button>
             <button @click="funcs.addOnePercentTax()">Add 1% tax</button>
 
-            <div>Price: {{price}}</div>
-            <div>Quantity: {{quantity}}</div>
-            <div>Tax: {{taxHuman}}</div>
-            <div>Sum (inc tax): {{sum}}</div>
+            <div class="output"><span>Price</span><span>{{price}}</span></div>
+            <div class="output"><span>Quantity</span><span>{{quantity}}</span></div>
+            <div class="output"><span>Tax</span><span>{{taxHuman}}</span></div>
+            <div class="output"><span>Sum</span><span>inc tax): {{sum}}</span></div>
           </div>
 
           <pre><code class="language-markup"><!--<div id="demo-component-2">
@@ -176,29 +177,29 @@ funcs.addOnePercentTax = () => proxy.tax += 0.01--></code></pre>
         <article class="example" id="template-engine">
           <h2>Template engine</h2>
 
-          [ToDo] : Prevent JS to render the example.
           <pre><code class="language-markup"><!--<div id="component">
   <div id="valueA">{{a}}</div>
   <div id="valueB">{{b}}</div>
   <div id="sum">{{sum}}</div> 
 </div>--></code></pre>
 
-          Output
-          <pre><code class="language-js"><!--1
-2
-Sum: 3--></code></pre>
-
           <pre><code class="language-js"><!--proxy.a = 1;
 proxy.b = 2;
 compute.sum = () => `$Sum: ${proxy.a + proxy.b}`;
             --></code></pre>
+
+            Output
+          <pre><code class="language-js"><!--1
+2
+Sum: 3--></code></pre>
         </article>
 
         <article class="example" id="proxy">
           <h2>Proxy</h2>
 
-          - {proxy.name} or {just name} The proxy does the heavy lifting when it comes to the reactivities. It's basically an object with properties that will update the dom every-time a property
-          changes.
+          <p>{proxy.name} or {just name} The proxy does the heavy lifting when it comes to the reactivities. It's basically an object with properties that will update the dom every-time a property
+            changes.</p>
+          
 
           <pre><code class="language-js"><!--proxy.a = 1;
 proxy.b = 2;--></code></pre>
@@ -248,7 +249,7 @@ funcs.myFn = (proxy, value) => {
         <article class="example" id="click">
           <h2>@click</h2>
 
-          This could be used with funcs too
+          <p>This could be used with funcs too</p>
 
           <pre><code class="language-markup"><!--<div id="component">
   <button id="button" @click='proxy.a += 10'>Count Up</button>
@@ -260,7 +261,7 @@ funcs.myFn = (proxy, value) => {
         <article class="example" id="input">
           <h2>@input</h2>
 
-          This could be used with funcs too
+          <p>This could be used with funcs too</p>
 
           <pre><code class="language-markup"><!--<div id="component">
   <label for="price">Price</label>
@@ -343,7 +344,7 @@ funcs.myFn = (proxy, value) => {
   <input id="input-el" type="number" r-model="proxy.price">
 </div>--></code></pre>
 
-          prefix with proxy is optional, above r-model could be used like this.
+          <p>prefix with proxy is optional, above r-model could be used like this.</p>
 
           <pre><code class="language-markup"><!--<div id="component">
   <input id="input-el" type="number" r-model="price">
