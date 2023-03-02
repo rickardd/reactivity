@@ -22,8 +22,6 @@ compute.sum = () => proxy.price * proxy.quantity;
 compute.total = () => proxy.price * proxy.quantity + proxy.tax;
 
 funcs.getUsers = (proxy, value) => {
-  console.log(proxy, value, "users...");
-
   // ToDo: Currently r-for does not handle nested object props e.g {user.name}
   fetch('https://dummyjson.com/users')
     .then(res => res.json())
@@ -31,14 +29,5 @@ funcs.getUsers = (proxy, value) => {
       proxy.users = res.users.map(user => user.firstName)
     })
 }
-
-funcs.getProducts = (proxy, value) => {
-  console.log(proxy, value, "products...");
-
-  fetch('https://dummyjson.com/products')
-    .then(res => res.json())
-    .then(json => console.log(json))
-}
-
 
 

@@ -19,8 +19,14 @@ h1 {
 }
 
 h2 {
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin-top: 0;
+  color: var(--color-blue);
+}
+
+h3 {
+  font-size: 1rem;
+  margin-top: 3rem;
   color: var(--color-blue);
 }
 

@@ -57,15 +57,13 @@
         <article class="example" id="demo">
           <div id="demo-component-1">
             <h2>Demo</h2>
-
-            <button @click="funcs.getUsers()">Get Users</button>
-            <button @click="funcs.getProducts()">Get Products</button>
-            <button @click="proxy.price += 10">Count Up</button>
+            <h3>Inputs</h3>
+            <button @click="proxy.price += 10">Count Up Price</button>
             <div class="output"><span>Price:</span><span>{{price}}</span></div>
             <div class="output"><span>Quantity</span> <span>{{quantity}}</span></div>
             <div class="output"><span>Tax</span> <span>{{tax}}</span></div>
-            <div class="output"><span>Sum</span> <span>{{sum}}</span></div>
-            <div class="output"><span>Total</span> <span>{{total}}</span></div>
+            <div class="output"><span>Sum (computed value: price * quantity)</span> <span>{{sum}}</span></div>
+            <div class="output"><span>Total (computed value: price * quantity * tax)</span> <span>{{total}}</span></div>
             <div>
               <!-- JS (at least in chrome) auto assigns event in the addEventListener so we can use event here without assigning it -->
               <!-- both :value="tax" and :value="proxy.tax" are valid -->
@@ -104,26 +102,34 @@
                 <input type="number" r-model="tax" />
               </label>
             </div>
-            <!-- r-for -->
-            <strong>r-for</strong>
-            <button @click="proxy.names = [...proxy.names, 'Rick']">Add Rick</button>
-            <button @click="proxy.names = [...proxy.names, 'Carl']">Add Carl</button>
-            <button @click="proxy.names = [...proxy.names, 'Paula']">Add Paula</button>
-            <button @click="proxy.names = [...proxy.names, 'Foxy']">Add Foxy</button>
-            <!-- A handler for this is required -->
-            <button @click="delete proxy.names">Remove proxy.names</button>
-            <!-- Triggers deleteProperty() -->
-            <!-- Most methods of deleting does not trigger the proxy set event -->
-            <!-- But splice works  -->
-            <!-- For delete to work properly we need a proxy for each value in the array. -->
-            <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
-            <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
 
+            <h3>r-for - Raccoon for loop</h3>
+            <div>
+              <button @click="proxy.names = [...proxy.names, 'Rick']">Add Rick</button>
+              <button @click="proxy.names = [...proxy.names, 'Carl']">Add Carl</button>
+              <button @click="proxy.names = [...proxy.names, 'Paula']">Add Paula</button>
+              <button @click="proxy.names = [...proxy.names, 'Foxy']">Add Foxy</button>
+            </div>
+            <div>
+              <!-- Triggers deleteProperty() -->
+              <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
+              <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
+            </div>
+
+            <ul r-for="name of proxy.names">
+              <!-- ToDo: The r-for does not handle objects e.g user.firstName. -->
+              <li>{{ name }}</li>
+            </ul>
+
+            <h3>Fetch from external API</h3>
+            <button @click="funcs.getUsers()">Get Users</button>
             <ul r-for="user of proxy.users">
               <!-- ToDo: The r-for does not handle objects e.g user.firstName. -->
               <li>{{ user }}</li>
             </ul>
           </div>
+
+
         </article>
 
         <article class="example" id="setup">
@@ -342,7 +348,12 @@ funcs.myFn = (proxy, value) => {
   <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
   <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
 </div>--></code></pre>
-            
+
+          <p>Adding value works works with the spread operator.</p>
+
+          <pre><code class="language-markup"><!--<div id="component">
+  <button @click="proxy.names = [...proxy.names, 'Rick']">Add Rick</button>
+</div>--></code></pre>
             
         </article>
 
