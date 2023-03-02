@@ -335,6 +335,15 @@ funcs.myFn = (proxy, value) => {
           <p>An r-for-key will be dynamically added to the markup which is required during the rendering process.</p>
 
           <pre><code class="language-js"><!--proxy.names = ["Lisa", "Frank", "Steve"];--></code></pre>
+
+          <p>Most methods of deleting does not trigger the proxy set event, in other words no reactivity. Using splice is the way to delete a value and still keep the reactivity. See examples.</p>
+
+          <pre><code class="language-markup"><!--<div id="component">
+  <button @click="proxy.names = proxy.names.slice(1, proxy.names.length)">Delete First</button>
+  <button @click="proxy.names = proxy.names.slice(0, -1)">Delete Last</button>
+</div>--></code></pre>
+            
+            
         </article>
 
         <article class="example" id="r-model">
