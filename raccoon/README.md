@@ -9,7 +9,29 @@ Raccoon is a reactive - component based framework with basic functionality such 
 
 Install Raccoon 
 
-`npm install raccoon-js-framework`
+```bash
+npm install raccoon-js-framework
+npm install http-server --save-dev # Or what ever server you like
+```
+
+```json
+{
+  "scripts": {
+    "start": "http-server . -o"
+  }
+}
+```
+
+```html
+<!-- Add in the header -->
+<script src="app.js" type="module"></script>
+```
+
+```js
+// Import Raccoon
+// ToDo: Fix this import statement.
+import { Raccoon } from "./node_modules/raccoon-js-framework/source/index.js";
+```
 
 Create a component
 
@@ -29,7 +51,7 @@ Create a component
 Write some javascript
 
 ```js
-import { Raccoon } from "raccoon";
+import { Raccoon } from "./node_modules/raccoon-js-framework/source/index.js";
 
 const componentEl = document.getElementById("demo-component-2");
 
