@@ -29,7 +29,9 @@ npm install http-server --save-dev # Or what ever server you like
 
 ```js
 // Import Raccoon
-// ToDo: Fix this import statement.
+import { Raccoon } from "raccoon-js-framework";
+
+// Without bundler (Webpack, Vite etc), use relative path.
 import { Raccoon } from "./node_modules/raccoon-js-framework/source/index.js";
 ```
 
