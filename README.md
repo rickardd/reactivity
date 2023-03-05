@@ -22,18 +22,23 @@ Local modules: npm ls --link (lists links for current local folder)
 
 Unlink package
 ```
-npm unlink raccoon --global
+npm unlink raccoon-js-framework --global
 ```
 
 ## Publish NPM package
 
 `npm login`
 
+`npm publish --dry-run` - Ensure we don't publish unnecessary date, only publish readme, sourcefile and license.
+
 `npm publish`
 
 `npm whoami` - Check who you're logged in as.
 
 `npm access ls-packages` - Ensure that you have the necessary permissions to publish packages
+
+**Private vs public**
+In your terminal, run npm publish --access=public to actually publish the package to npm. Note: --access=public is needed for scoped packages (@clarkio/modern-npm-package) as they're private by default. If it's not scoped and doesn't have the private field set to true in your package.json, it will be public as well.
 
 ## Test
 $ npm run test
