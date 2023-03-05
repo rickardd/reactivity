@@ -1,4 +1,7 @@
-import { Raccoon } from "raccoon-js-framework";
+// With bundler
+// import { Raccoon } from "raccoon";
+// Without bundler
+import { Raccoon } from "./node_modules/raccoon-js-framework/index.js";
 
 const componentEl = document.getElementById("demo-component-2");
 

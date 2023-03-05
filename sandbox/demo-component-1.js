@@ -1,6 +1,7 @@
-// ToDo: Investigate why (.. from "raccoon") does not work with symlink with http-server.
+// With bundler
 // import { Raccoon } from "raccoon";
-import { Raccoon } from "raccoon-js-framework";
+// Without bundler
+import { Raccoon } from "./node_modules/raccoon-js-framework/index.js";
 
 const appEl = document.getElementById("demo-component-1");
 
