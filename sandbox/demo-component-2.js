@@ -1,4 +1,4 @@
-import { Raccoon } from "raccoon-js-framework";
+import { Raccoon } from "./node_modules/raccoon-js-framework/source/index.js";
 
 const componentEl = document.getElementById("demo-component-2");
 

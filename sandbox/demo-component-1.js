@@ -1,6 +1,6 @@
 // ToDo: Investigate why (.. from "raccoon") does not work with symlink with http-server.
 // import { Raccoon } from "raccoon";
-import { Raccoon } from "raccoon-js-framework";
+import { Raccoon } from "./node_modules/raccoon-js-framework/source/index.js";
 
 const appEl = document.getElementById("demo-component-1");
 
