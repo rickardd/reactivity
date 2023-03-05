@@ -13,4 +13,4 @@ compute.taxHuman = () => `${100 * proxy.tax}%`
 
 funcs.addOnePercentTax = () => proxy.tax += 0.01
 
-
+console.log("netlify");
