@@ -1,7 +1,7 @@
 // With bundler
-// import { Raccoon } from "raccoon";
+import { Raccoon } from "raccoon-js-framework";
 // Without bundler
-import { Raccoon } from "./node_modules/raccoon-js-framework/index.js";
+// import { Raccoon } from "./node_modules/raccoon-js-framework";
 
 const componentEl = document.getElementById("demo-component-2");
 
@@ -15,5 +15,3 @@ compute.sum = () => (proxy.price * proxy.quantity) + (100 * proxy.tax);
 compute.taxHuman = () => `${100 * proxy.tax}%`
 
 funcs.addOnePercentTax = () => proxy.tax += 0.01
-
-console.log("netlify");
