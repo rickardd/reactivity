@@ -1,6 +1,6 @@
 {
   "name": "raccoon-js-framework",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Raccoon-js An experimental js framework inspired by Vue",
   "main": "index.js",
   "homepage": "https://glittery-vacherin-1c6fa0.netlify.app/",
