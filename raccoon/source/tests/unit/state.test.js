@@ -1,4 +1,4 @@
-import { Raccoon } from "../../index.js";
+import { Raccoon } from "../../../index.js";
 import { State } from "../../state-manager/state.js";
 
 const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
