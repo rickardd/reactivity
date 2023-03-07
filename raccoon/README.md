@@ -43,29 +43,10 @@ import { Raccoon } from "raccoon-js-framework";
 import { Raccoon } from "./node_modules/raccoon-js-framework/source/index.js";
 ```
 
-Create a component
-
-```html
-<div id="demo-component-2">
-  <button @click="proxy.price += 10">Increase price</button>
-  <button @click="proxy.quantity += 1">Increase quantity</button>
-  <button @click="funcs.addOnePercentTax()">Add 1% tax</button>
-
-  <div>Price: {{price}}</div>
-  <div>Quantity: {{quantity}}</div>
-  <div>Tax: {{taxHuman}}</div>
-  <div>Sum (inc tax): {{sum}}</div>
-
-  <div r-for="name of names">
-    {{ name }}
-  </div>
-</div>
-```
-
 Write some javascript
 
 ```js
-import { Raccoon } from "./node_modules/raccoon-js-framework/source/index.js";
+import { Raccoon } from "raccoon-js-framework";
 
 const componentEl = document.getElementById("demo-component-2");
 
@@ -85,3 +66,24 @@ compute.taxHuman = () => `${100 * proxy.tax}%`
 
 funcs.addOnePercentTax = () => proxy.tax += 0.01
 ```
+
+Create a component
+
+```html
+<div id="demo-component-2">
+  <button @click="proxy.price += 10">Increase price</button>
+  <button @click="proxy.quantity += 1">Increase quantity</button>
+  <button @click="funcs.addOnePercentTax()">Add 1% tax</button>
+
+  <div>Price: {{price}}</div>
+  <div>Quantity: {{quantity}}</div>
+  <div>Tax: {{taxHuman}}</div>
+  <div>Sum (inc tax): {{sum}}</div>
+
+  <div r-for="name of names">
+    {{ name }}
+  </div>
+</div>
+```
+
+
